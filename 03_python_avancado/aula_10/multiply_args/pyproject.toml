@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "multiply-args"
+version = "0.1.0"
+description = ""
+authors = ["Marlisson <marlisson.business@gmail.com>"]
+readme = "README.md"
+packages = [{include = "multiply_args"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
