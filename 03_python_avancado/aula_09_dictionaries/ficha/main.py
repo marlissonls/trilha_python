@@ -56,7 +56,7 @@ def averageValidation() -> float:
             print('A média tem que ser um número inteiro ou decimal!')
     return average
 
-def checkCondition(average: int) -> str:
+def checkCondition(average: float) -> str:
     """
     This function receives the average of the student and returns its condition
     """
