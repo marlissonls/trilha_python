@@ -59,6 +59,8 @@ division(None)                                             TypeError: Não é po
 division(variavelIndefinida)                               NameError: name 'variavelIndefinida' is not defined
 division(variavelDeletada)                                 UnboundLocalError: local variable 'variavelDeletada' referenced before assignment
 division()                                                 TypeError: division() missing 1 required positional argument: 'input'
+
+Mensagem executada na cláusula finally: Finalizando a execução. User: MARLISSON.
 """
 
 """
