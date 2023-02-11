@@ -1,1 +1,0 @@
-<h2>This program receives a sentence and counts the occurrences of letter 'x' in it.
