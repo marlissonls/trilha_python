@@ -46,7 +46,7 @@ if __name__ == '__main__':
 """
 ---Resultados---
 
-division(0)                                                TypeError: Não é possível dividir por zero!
+division(0)                                                ZeroDivisionError: Não é possível dividir por zero!
 division('teste')                                          TypeError: Não é possível dividir um tipo int por um tipo str!
 division(['elemento','outro'])                             TypeError: Não é possível dividir um tipo int por um tipo list!
 division(('elemento','outro'))                             TypeError: Não é possível dividir um tipo int por um tipo tuple!
@@ -54,7 +54,7 @@ division({'chave':'valor'})                                TypeError: Não é po
 division(print('funcão print() passada como argumento'))   TypeError: Não é possível dividir um tipo int por um tipo NoneType!
 division(10)                                               0.1
 division(True)                                             1.0
-division(False)                                            TypeError: Não é possível dividir por zero!
+division(False)                                            ZeroDivisionError: Não é possível dividir por zero!
 division(None)                                             TypeError: Não é possível dividir um tipo int por um tipo NoneType!
 division(variavelIndefinida)                               NameError: name 'variavelIndefinida' is not defined
 division(variavelDeletada)                                 UnboundLocalError: local variable 'variavelDeletada' referenced before assignment

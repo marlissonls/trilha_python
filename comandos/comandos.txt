@@ -1,0 +1,12 @@
+c2 = c1
+print(id(c1))
+#140059774918104
+print(id(c2))
+#140059774918104
+
+class Conta:
+    pass
+
+dir(Conta)
+
+print(conta.__dict__) ==== vars(conta)
