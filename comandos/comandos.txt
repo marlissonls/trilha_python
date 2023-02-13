@@ -10,3 +10,19 @@ class Conta:
 dir(Conta)
 
 print(conta.__dict__) ==== vars(conta)
+
+if	__name__	==	'__main__':
+				mc	=	MinhaClasse()
+				print(repr(mc))
+
+>>>	x	=	1
+>>>	eval("x+1")
+2
+
+
+hasattr()  #has attribute
+
+print(D.mro())
+
+isinstance()
+issubclass()
