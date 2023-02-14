@@ -39,9 +39,9 @@ def main() -> None:
     viagem_B_C = Viagem('Aeroporto B', 'Aeroporto C')
     viagem_A_C = Viagem(viagem_A_B.origem, viagem_B_C.destino)
 
-    viagem_A_B.viagemOrigemDestino()
-    viagem_B_C.viagemOrigemDestino()
-    viagem_A_C.viagemOrigemDestino()
+    for viagem in (viagem_A_B, viagem_B_C, viagem_A_C):
+        viagem.viagemOrigemDestino()
+
     print('\nNo total foram realizadas {} viagens.'.format(Viagem.get_total_viagens()))
 
 if __name__ == '__main__':
