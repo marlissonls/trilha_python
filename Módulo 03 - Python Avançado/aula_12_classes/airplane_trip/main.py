@@ -46,3 +46,15 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
+"""
+SAÍDA:
+
+Você viajou do Aeroporto A para o Aeroporto B.
+
+Você viajou do Aeroporto B para o Aeroporto C.
+
+Você viajou do Aeroporto A para o Aeroporto C.
+
+No total foram realizadas 3 viagens.
+"""
