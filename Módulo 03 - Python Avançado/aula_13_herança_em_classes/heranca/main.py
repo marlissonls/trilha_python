@@ -67,19 +67,20 @@ def validateTriangle(numTriangleSides: int) -> List[float]:
 
     while True:
         try:
-            sides = validateSides(numTriangleSides, 'triângulo')
+            [ a, b, c ] = validateSides(numTriangleSides, 'triângulo')
             
-            boolean_1 = sides[0] + sides[1] <= sides[2]
-            boolean_2 = sides[0] + sides[2] <= sides[1]
-            boolean_3 = sides[1] + sides[2] <= sides[0]
+            boolean_1 = a + b <= c
+            boolean_2 = a + c <= b
+            boolean_3 = b + c <= a
 
             if boolean_1 or boolean_2 or boolean_3:
                 raise TriangleError
+            
         except TriangleError:
             print('\nTriangleError: Os lados informados não podem formar um triâgulo!')
             print('Motivo: O tamanho de um dos lados é igual ou superior à soma dos tamanhos dos outros dois lados.')
         else:
-            return sides
+            return [ a, b, c ]
 
 def main() -> None:
     """ This is an initialization function that calculates the area of a triangle using classes and methods. """

@@ -26,3 +26,12 @@ print(D.mro())
 
 isinstance()
 issubclass()
+
+JSON.stingify(object) === json.dumpls(object)
+JSON.parse(string) === json.loads(string)
+
+"Bootstrap",
+        "jQuery",
+        "Sass",
+        "React",
+        "Redux"
