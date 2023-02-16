@@ -16,6 +16,8 @@ class ZeroOrNegativeValueError(Exception):
 class Polygon(ABC):
     """ This class was defined as an abstract class because it does not refer to any specific polygon """
 
+    __slots__ = ['_sides']   # This setting prohibits new attributes from being created.
+
     def __init__(self, sides: List[float]) -> None:
         self._sides = sides
     
@@ -24,6 +26,8 @@ class Polygon(ABC):
         return self._sides
 
 class Triangle(Polygon):
+    __slots__ = ['_sides']   # This setting prohibits new attributes from being created.
+
     def __init__(self, sides: List[float]) -> None:
         super().__init__(sides)
     
