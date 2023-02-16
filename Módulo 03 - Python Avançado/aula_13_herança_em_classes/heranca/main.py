@@ -2,24 +2,25 @@
 Crie a classe Polygon com um construtor que recebe “sides: List[float]” e um método “display_sides() -> List[float]”.
 Crie também a classe Triangle que herda o Polygon e implementa o “find_area() -> float”.
 """
+
 from abc import ABC
 from typing import List
 import math
 
 class TriangleError(Exception):
-    "Raised when the quantity of numbers inserted on input are different of 3."
+    "Raised when a triangle can't be created."
 
 class ZeroOrNegativeValueError(Exception):
     "Raised when a determined value is zero or negative."
 
 class Polygon(ABC):
-    """ Esta classe foi definida como uma classe abstrata porque ela não remete a nenhum polígono específico """
+    """ This class was defined as an abstract class because it does not refer to any specific polygon """
 
     def __init__(self, sides: List[float]) -> None:
         self._sides = sides
-       
+    
     def display_sides(self) -> List[float]:
-        """ Retorna uma List[float] com os lados do polígono """
+        """ Returns a List[float] with the sides of the polygon """
         return self._sides
 
 class Triangle(Polygon):
@@ -28,9 +29,9 @@ class Triangle(Polygon):
     
     def find_area(self) -> float:
         """ 
-        Este método usa o atributo _sides que contém uma Lista[lado: float, lado: float, lado: float] para calcular a área de um triângulo.
-        O Calculo da área é feito usando a Fórmula de Herão de Alexandria: A = [p(p-a)(p-b)(p-c)]^(0.5).
-        Onde A = área do triângulo, p = perímetro/2 e a, b e c = lados do triângulo.
+        This method uses the _sides attribute which contains a List[side: float (x3)] to calculate the area of a triangle.
+        The calculation of the area is done using the Hero of Alexandria's Formula: A = square_root( p(p-a)(p-b)(p-c) ).
+        Where A = area of the triangle, p = perimeter/2 and a, b and c = sides of the triangle.
         """
         [ a, b, c ] = self._sides
         p = sum([ a, b, c ]) / 2
@@ -38,10 +39,8 @@ class Triangle(Polygon):
         return Area
 
 def validateSides(numSides: int, polygonType: str) -> List[float]:
-    """
-    Esta função recebe um número de lados e o nome de tipo de polígono e
-    retorna uma lista com os tamanhos dos lados validados
-    """
+    """ This function takes a number of sides and the polygon type name and returns a list of validated side sizes """
+
     sides = []
     for sideIterator in range(numSides):
         print(f'\n{sideIterator + 1}º lado do {polygonType}.')
@@ -60,7 +59,7 @@ def validateSides(numSides: int, polygonType: str) -> List[float]:
     return sides
 
 def validateTriangle(numTriangleSides: int) -> List[float]:
-    """Esta função obtém os lados do triângulo e retorna uma lista dos lados validados do triângulo"""
+    """ This function gets the sides of the triangle and returns a list of the validated sides of the triangle """
 
     while True:
         try:
@@ -79,16 +78,15 @@ def validateTriangle(numTriangleSides: int) -> List[float]:
             return sides
 
 def main() -> None:
-    """
-    Esta função pede os lados de um triângulo, cria uma instância de um Triangle, 
-    mostra uma lista com os lados do triângulo e mostra o valor da área do triângulo
-    """
+    """ This is an initialization function that calculates the area of a triangle using classes and methods. """
     
     triangleSides = validateTriangle(3)
-    triangulo = Triangle(triangleSides)
+    triangle = Triangle(triangleSides)
+    getTriangleSides = triangle.display_sides()
+    getTriangleArea = triangle.find_area()
 
-    print(f'\nLados do triângulo: {triangulo.display_sides()}')
-    print(f'\nÁrea do triângulo: {round(triangulo.find_area(), 3)}')
+    print(f'\nLados do triângulo: {getTriangleSides}')
+    print(f'\nÁrea do triângulo: {round(getTriangleArea, 3)}')
 
 if __name__ == '__main__':
     main()
