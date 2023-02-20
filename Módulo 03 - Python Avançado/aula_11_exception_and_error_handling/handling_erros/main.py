@@ -13,6 +13,8 @@ def division(input: Any) -> None:
         print('ZeroDivisionError: Não é possível dividir por zero!')
     except TypeError:
         print('TypeError: Não é possível dividir um tipo int por um tipo {0}!'.format(type(input).__name__))
+    except Exception as newError:
+        print(newError)
     else:
         print(quociente)
     finally:

@@ -204,6 +204,11 @@ class Conta:
     def get_total_contas(cls):
         return cls._total_contas
 
+class C: 
+    @classmethod 
+    def fun(cls, arg1, arg2):
+        pass
+
 class AtendimentoMixIn:
     def cadastra_atendimento(self):
         pass # faz cadastro atendimento

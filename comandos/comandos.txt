@@ -31,7 +31,9 @@ JSON.stingify(object) === json.dumpls(object)
 JSON.parse(string) === json.loads(string)
 
 "Bootstrap",
-        "jQuery",
-        "Sass",
-        "React",
-        "Redux"
+    "jQuery",
+    "Sass",
+    "React",
+    "Redux"
+
+for country in (obj_ind, obj_usa):
