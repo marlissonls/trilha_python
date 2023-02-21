@@ -2,7 +2,7 @@ import os
 
 Any = int | float | str | bool | bytes | list | tuple | dict | set | object | frozenset
 
-def division(input: Any) -> None:
+def divisionOneForAll(input: Any) -> None:
     """
     This function takes an input that can be any value or type and tries to calculate 1/input. 
     It raises some exception/error or the result of division. And at the end | it shows a message with the user name.
@@ -14,7 +14,7 @@ def division(input: Any) -> None:
     except TypeError:
         print('TypeError: Não é possível dividir um tipo int por um tipo {0}!'.format(type(input).__name__))
     except Exception as newError:
-        print(newError)
+        print('Ocorreu um erro:\n', newError)
     else:
         print(quociente)
     finally:
@@ -32,13 +32,13 @@ def main() -> None:
     print('\n\n')
 
     for input in inputs:
-        division(input)
+        divisionOneForAll(input)
     
-    division(variavelIndefinida)  # Chamada com uma variavel indefinida.
+    divisionOneForAll(variavelIndefinida)  # Chamada com uma variavel indefinida.
     variavelDeletada = 1
     del variavelDeletada
-    division(variavelDeletada)    # Chamada com uma variavel deletada.
-    division()                    # Chamada sem fornecer um argumento.
+    divisionOneForAll(variavelDeletada)    # Chamada com uma variavel deletada.
+    divisionOneForAll()                    # Chamada sem fornecer um argumento.
     
 
 if __name__ == '__main__':

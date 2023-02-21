@@ -7,11 +7,12 @@ except FileNotFoundError:
     arquivo = open(nome_arquivo, 'a')
 
 else:
-    print(f"Arquivo {nome_arquivo} já existe")
+    print(nome_arquivo)
+    print(f"O Arquivo {nome_arquivo} existe")
 
 finally:
     # Realiza algum processamento no arquivo
-    processa_arquivo(arquivo)
+    print(arquivo)
 
     # Fecha o arquivo
     arquivo.close()
