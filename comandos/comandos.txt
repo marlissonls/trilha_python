@@ -27,7 +27,7 @@ print(D.mro())
 isinstance()
 issubclass()
 
-JSON.stingify(object) === json.dumpls(object)
+JSON.stRingify(object) === json.dumpls(object)
 JSON.parse(string) === json.loads(string)
 
 "Bootstrap",
@@ -37,3 +37,25 @@ JSON.parse(string) === json.loads(string)
     "Redux"
 
 for country in (obj_ind, obj_usa):
+
+unittest comand line:
+python -m unittest test
+python -m unittest -v test
+python -m unittest discover
+python -m unittest discover -s tests
+python -m unittest discover -s tests -t src
+python -m unittest discover -s tests/integration
+
+.assertEqual(a, b)	        a == b
+.assertTrue(x)	            bool(x) is True
+.assertFalse(x)	            bool(x) is False
+.assertIs(a, b)	            a is b
+.assertIsNone(x)	        x is None
+.assertIn(a, b)	            a in b
+.assertIsInstance(a, b)	    isinstance(a, b)
+.assertIs()
+.assertIsNone()
+.assertIn()
+.assertIsInstance()
+.assertIsNot()
+
