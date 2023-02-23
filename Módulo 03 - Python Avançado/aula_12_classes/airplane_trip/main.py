@@ -21,11 +21,14 @@ class Viagem:
         return self._origem
 
     @property
-    def destino(self) -> str:       # This method returns the _destino attribute of a Viagem instance
+    def destino(self) -> str:    # This method returns the _destino attribute of a Viagem instance
         return self._destino
     
-    def viagemOrigemDestino(self) -> None:   # This method shows the realized trip.
-        print('\nVocê viajou do {0} para o {1}.'.format(self._origem, self._destino))
+    def __add__(self, airport: "Viagem") -> "Viagem":
+        return Viagem(self._origem, airport._destino)
+
+    def __str__(self) -> None:   # This method returns the realized trip.
+        return 'Você viajou da cidade {0} para a cidade {1}.\n'.format(self._origem, self._destino)
 
     @staticmethod                       # Defines a static method.
     def get_total_viagens() -> int:     # Returns the number of realized trips.
@@ -35,12 +38,19 @@ def main() -> None:
     """
     This function is the main function that only configures some instances of the Viagem class.
     """
-    viagem_A_B = Viagem('Aeroporto A', 'Aeroporto B')
-    viagem_B_C = Viagem('Aeroporto B', 'Aeroporto C')
-    viagem_A_C = Viagem(viagem_A_B.origem, viagem_B_C.destino)
+    print("Informe o nome de 3 cidades que você gostaria de viajar em sequência:\n")
+    
+    cidades = []
+    for cidade in range(3):
+        cidades.append(input(f"{cidade+1}ª cidade: "))
+    
+    viagem_A_B = Viagem(cidades[0], cidades[1])
+    viagem_B_C = Viagem(cidades[1], cidades[2])
+    viagem_A_C = viagem_A_B + viagem_B_C
 
+    print()
     for viagem in (viagem_A_B, viagem_B_C, viagem_A_C):
-        viagem.viagemOrigemDestino()
+        print(viagem)
 
     print('\nNo total foram realizadas {} viagens.'.format(Viagem.get_total_viagens()))
 
@@ -50,11 +60,18 @@ if __name__ == '__main__':
 """
 SAÍDA:
 
-Você viajou do Aeroporto A para o Aeroporto B.
+Informe o nome de 3 cidades que você gostaria de viajar em sequência:
 
-Você viajou do Aeroporto B para o Aeroporto C.
+1ª cidade: Caruaru
+2ª cidade: Recife
+3ª cidade: Balneário Camboriú
 
-Você viajou do Aeroporto A para o Aeroporto C.
+Você viajou da cidade Caruaru para a cidade Recife.
+
+Você viajou da cidade Recife para a cidade Balneário Camboriú.
+
+Você viajou da cidade Caruaru para a cidade Balneário Camboriú.
+
 
 No total foram realizadas 3 viagens.
 """
