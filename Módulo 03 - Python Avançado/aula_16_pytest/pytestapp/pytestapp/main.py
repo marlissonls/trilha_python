@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, os
  
 class Advice:
     __slots__ = ['_advice']
@@ -11,25 +11,30 @@ class Advice:
         """ Returns the _advice attribute. """
         return self._advice
     
-    def write_advice(self) -> None:
+    def write_advice(self) -> str:
         """ Gets data from a json file, appends a new content to it and rewrite the json file with the modified data. """
 
-        with open("advices/advices.json", "r") as advice_file:
-            content_json = json.loads(advice_file.read())
+        try:
+            with open(f"{os.path.dirname(os.path.realpath(__file__))}/advices/advices.json", "r") as advice_file:
+                content_json = json.loads(advice_file.read())
 
-        content_json.append({"id": len(content_json) + 1, "advice": self._advice})
+            content_json.append({"id": len(content_json) + 1, "advice": self._advice})
 
-        with open("advices/advices.json", "w") as advice_file:
-            advice_file.write(json.dumps(content_json))
+            with open(f"{os.path.dirname(os.path.realpath(__file__))}/advices/advices.json", "w") as advice_file:
+                advice_file.write(json.dumps(content_json))
+        except Exception: 
+            return "Something went wrong!"
+        else:
+            return "the advice was written to the file succesfully!"
 
     @classmethod
     def show_old_advices(cls) -> list:
         """ Returns a list of old advices from json file """
 
-        with open("advices/advices.json", "r") as advice_file:
+        with open(f"{os.path.dirname(os.path.realpath(__file__))}/advices/advices.json", "r") as advice_file:
             return json.loads(advice_file.read())
 
-def main():
+def main() -> None:
     """ 
     Requests a new advice from Advice class and prints it;
     Writes the advice on a json file; and
