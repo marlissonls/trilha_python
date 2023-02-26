@@ -27,7 +27,7 @@ print(D.mro())
 isinstance()
 issubclass()
 
-JSON.stRingify(object) === json.dumpls(object)
+JSON.stringify(object) === json.dumps(object)
 JSON.parse(string) === json.loads(string)
 
 "Bootstrap",
