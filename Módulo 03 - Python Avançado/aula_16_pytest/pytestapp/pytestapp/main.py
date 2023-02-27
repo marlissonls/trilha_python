@@ -4,13 +4,15 @@ import json
 
 class Advice:
     __slots__ = ['_advice']
+    _api_url = "https://api.adviceslip.com/advice"
+    _api_headers = {"Accept": "application/json"}
     _advices_json_path = f"{dirname(realpath(__file__))}/advices/advices.json"
 
     def __init__(self) -> None:
         """ Builds a new instance of the Advice class assigning a new advice from a advice api. """
 
         try:
-            self._advice = get("https://api.adviceslip.com/advice", {"Accept": "application/json"}).json()['slip']['advice']
+            self._advice = get(Advice._api_url, Advice._api_headers).json()['slip']['advice']
         except Exception:
             print("Advice API request error.")
     
