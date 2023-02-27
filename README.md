@@ -6,9 +6,9 @@
 - <a href="https://github.com/marlissonls/trilha_python/tree/modulo_01">Módulo 01 - Introdução ao Python</a>
 - <a href="https://github.com/marlissonls/trilha_python/tree/modulo_02">Módulo 02 - Versionamento de Código</a>
 - <a href="https://github.com/marlissonls/trilha_python/tree/modulo_03">Módulo 03 - Python avançado</a>
+- <a href="https://github.com/marlissonls/trilha_python/tree/modulo_04">Módulo 04 - Visão Computacional</a>
 - Banco de dados em Python
 - Interfaces com python para dashboard
 - Analytics
-- Visão Computacional
 - Web
 - Inteligência Artificial
