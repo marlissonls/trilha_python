@@ -1,4 +1,4 @@
-from pytestapp.main import Advice
+from app.main import Advice
 # import pytest
 
 class TestAdvice:
