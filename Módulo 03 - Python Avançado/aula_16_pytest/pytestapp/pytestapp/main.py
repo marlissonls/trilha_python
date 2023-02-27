@@ -5,7 +5,11 @@ class Advice:
 
     def __init__(self) -> None:
         """ Builds a new instance of the Advice class assigning a new advice from a advice api. """
-        self._advice = requests.get("https://api.adviceslip.com/advice", {"Accept": "application/json"}).json()['slip']['advice']
+
+        try:
+            self._advice = requests.get("https://api.adviceslip.com/advice", {"Accept": "application/json"}).json()['slip']['advice']
+        except Exception:
+            print("Advice API request error.")
     
     def __str__(self) -> str:
         """ Returns the _advice attribute. """
@@ -23,16 +27,21 @@ class Advice:
             with open(f"{os.path.dirname(os.path.realpath(__file__))}/advices/advices.json", "w") as advice_file:
                 advice_file.write(json.dumps(content_json))
         except Exception: 
-            return "Something went wrong!"
+            return "Something went wrong! The advice wasn't written to the file."
         else:
-            return "the advice was written to the file succesfully!"
+            return "The advice was written to the file succesfully!"
 
     @classmethod
     def show_old_advices(cls) -> list:
         """ Returns a list of old advices from json file """
 
-        with open(f"{os.path.dirname(os.path.realpath(__file__))}/advices/advices.json", "r") as advice_file:
-            return json.loads(advice_file.read())
+        try:
+            with open(f"{os.path.dirname(os.path.realpath(__file__))}/advices/advices.json", "r") as advice_file:
+                content_json = json.loads(advice_file.read())
+        except Exception:
+            return "Something went wrong! The file cannot be read."
+        else:
+            return content_json
 
 def main() -> None:
     """ 
