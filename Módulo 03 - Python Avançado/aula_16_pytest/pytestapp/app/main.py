@@ -4,15 +4,16 @@ import json
 
 class Advice:
     __slots__ = ['_advice']
-    _api_url = "https://api.adviceslip.com/advice"
-    _api_headers = {"Accept": "application/json"}
-    _advices_json_path = f"{dirname(realpath(__file__))}/advices/advices.json"
+    
+    _api_url: str = "https://api.adviceslip.com/advice"
+    _api_headers: dict = {"Accept": "application/json"}
+    _advices_json_path: str = f"{dirname(realpath(__file__))}/advices/advices.json"
 
     def __init__(self) -> None:
         """ Builds a new instance of the Advice class assigning a new advice from a advice api. """
 
         try:
-            self._advice = get(Advice._api_url, Advice._api_headers).json()['slip']['advice']
+            self._advice: str = get(Advice._api_url, Advice._api_headers).json()['slip']['advice']
         except Exception:
             print("Advice API request error.")
     
@@ -21,11 +22,11 @@ class Advice:
         return self._advice
     
     def write_advice(self) -> str:
-        """ Gets data from a json file, appends a new content to it and rewrite the json file with the modified data. """
+        """ Gets a list from a json file, appends a new advice to it and rewrite the json file with the modified list. """
 
         try:
             with open(Advice._advices_json_path, "r") as advice_file:
-                content_json = json.loads(advice_file.read())
+                content_json: list = json.loads(advice_file.read())
 
             content_json.append({"id": len(content_json) + 1, "advice": self._advice})
 
@@ -37,12 +38,12 @@ class Advice:
             return "The advice was written to the file succesfully!"
 
     @classmethod
-    def show_old_advices(cls) -> list:
-        """ Returns a list of old advices from json file """
+    def show_old_advices(cls) -> list | str:
+        """ Shows a list of old advice from the json file """
 
         try:
             with open(Advice._advices_json_path, "r") as advice_file:
-                content_json = json.loads(advice_file.read())
+                content_json: list = json.loads(advice_file.read())
         except Exception:
             return "Something went wrong! The file cannot be read."
         else:
