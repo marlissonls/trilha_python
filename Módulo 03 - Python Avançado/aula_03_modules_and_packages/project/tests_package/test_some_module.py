@@ -1,0 +1,1 @@
+message = "Hello! I'm a test for some module, my name is 'test_some_module.py' and 'tests_package' is my home."

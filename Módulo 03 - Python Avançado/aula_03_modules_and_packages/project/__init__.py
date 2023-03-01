@@ -1,0 +1,1 @@
+__all__ = ['app_package', 'tests_package']
