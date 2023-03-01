@@ -4,15 +4,15 @@
 project tree:
 
 project/
-    /__init__.py
+    /____init__.py
 
     /app_package
-        /__init__.py
+        /____init__.py
         /app_module.py
         /some_module.py
 
     /tests_package
-        /__init__.py
+        /____init__.py
         /test_app_module.py
         /test_some_module.py
     
