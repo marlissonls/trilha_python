@@ -35,7 +35,7 @@ class Advice:
             with open(Advice._json_advice_file_path, "r") as advice_file:
                 json_content: list = change_type_to_json(advice_file.read())
 
-            json_content.append({"id": len(json_content) + 1, "advice": self._advice})
+            json_content.append(Advice.create_advice_dict(len(json_content) + 1, self._advice))
 
             with open(Advice._json_advice_file_path, "w") as advice_file:
                 advice_file.write(change_type_to_str(json_content))
@@ -55,6 +55,16 @@ class Advice:
             return Advice._show_old_advices_fail_msg
         else:
             return json_content
+    
+    @classmethod
+    def create_advice_dict(cls, id: int, advice: str) -> dict:
+        """ Returns a dictionary with id and advice keys """
+
+        advice_dict = {
+            "id": id,
+            "advice": advice
+        }
+        return advice_dict
 
 def main() -> None:
     """ 
