@@ -3,6 +3,15 @@
 Get new advice from an advice API and make your life easier!
 
 ## Get Started 🚀  
+
+Install Python
+
+~~~bash  
+  sudo apt-get update
+  sudo apt-get install python3.10
+  python3 --version
+~~~
+
 Clone the project
 
 ~~~bash  
@@ -15,13 +24,35 @@ Go to the app directory
   cd pytestapp/app
 ~~~
 
-Start getting advice ✨
+Start getting advice
 
 ~~~bash  
   python3 main.py
 ~~~
 
 ## Run Tests with Pytest 🔥
+
+Install Python
+
+~~~bash  
+  sudo apt-get update
+  sudo apt-get install pytest
+  pytest --version
+~~~
+
+Go to the project directory  
+
+~~~bash  
+  cd pytestapp
+~~~
+
+Run Tests
+
+~~~bash  
+  pytest
+~~~
+
+## Install Poetry for Virtual Envs ✨
 
 Install Poetry on:
 
@@ -36,7 +67,7 @@ Windows
 ~~~bash  
   (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
 ~~~
-###
+
 Add Poetry to your PATH:
 
 The installer creates a poetry wrapper in a well-known, platform-specific directory:
@@ -53,12 +84,6 @@ Alternatively, the full path to the poetry binary can always be used:
 - ~/.local/share/pypoetry/venv/bin/poetry on Linux/Unix.
 - %APPDATA%\pypoetry\venv\Scripts\poetry on Windows.
 - $POETRY_HOME/venv/bin/poetry if $POETRY_HOME is set.
-###
-Go to the project directory  
-
-~~~bash  
-  cd pytestapp
-~~~
 
 Install dependencies  
 
@@ -70,10 +95,4 @@ Activate the virtual env
 
 ~~~bash  
   poetry shell
-~~~
-
-Run Tests
-
-~~~bash  
-  pytest
 ~~~
