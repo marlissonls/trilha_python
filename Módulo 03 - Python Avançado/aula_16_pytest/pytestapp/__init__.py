@@ -1,1 +1,1 @@
-__all__ = ['pytest', 'tests']
+__all__ = ['app', 'tests']

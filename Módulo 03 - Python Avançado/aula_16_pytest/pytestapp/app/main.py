@@ -1,21 +1,28 @@
-from requests import get
-from os.path import dirname, realpath
-import json
+from requests import get as http_get_request
+from os.path import dirname as package_directory, realpath as this_module_path
+from json import loads as change_type_to_json, dumps as change_type_to_str
 
 class Advice:
-    __slots__ = ['_advice']
+    __slots__ = ['_advice']   # attributes limitator
     
+    # attributes for http requests
     _api_url: str = "https://api.adviceslip.com/advice"
     _api_headers: dict = {"Accept": "application/json"}
-    _advices_json_path: str = f"{dirname(realpath(__file__))}/advices/advices.json"
+    _api_request_fail_msg: str = "Advice API request error."
+
+    # attributes for file handling
+    _json_advice_file_path: str = f"{package_directory(this_module_path(__file__))}/advices/advices.json"
+    _write_advice_success_msg: str = "The advice was written to the file succesfully!"
+    _write_advice_fail_msg: str = "Something went wrong! The advice wasn't written to the file."
+    _show_old_advices_fail_msg: str = "Something went wrong! The file cannot be read."
 
     def __init__(self) -> None:
         """ Builds a new instance of the Advice class assigning a new advice from a advice api. """
 
         try:
-            self._advice: str = get(Advice._api_url, Advice._api_headers).json()['slip']['advice']
+            self._advice: str = http_get_request(Advice._api_url, Advice._api_headers).json()['slip']['advice']
         except Exception:
-            print("Advice API request error.")
+            print(Advice._api_request_fail_msg)
     
     def __str__(self) -> str:
         """ Returns the _advice attribute. """
@@ -25,29 +32,29 @@ class Advice:
         """ Gets a list from a json file, appends a new advice to it and rewrite the json file with the modified list. """
 
         try:
-            with open(Advice._advices_json_path, "r") as advice_file:
-                content_json: list = json.loads(advice_file.read())
+            with open(Advice._json_advice_file_path, "r") as advice_file:
+                json_content: list = change_type_to_json(advice_file.read())
 
-            content_json.append({"id": len(content_json) + 1, "advice": self._advice})
+            json_content.append({"id": len(json_content) + 1, "advice": self._advice})
 
-            with open(Advice._advices_json_path, "w") as advice_file:
-                advice_file.write(json.dumps(content_json))
+            with open(Advice._json_advice_file_path, "w") as advice_file:
+                advice_file.write(change_type_to_str(json_content))
         except Exception: 
-            return "Something went wrong! The advice wasn't written to the file."
+            return Advice._write_advice_fail_msg
         else:
-            return "The advice was written to the file succesfully!"
+            return Advice._write_advice_success_msg
 
     @classmethod
     def show_old_advices(cls) -> list | str:
         """ Shows a list of old advice from the json file """
 
         try:
-            with open(Advice._advices_json_path, "r") as advice_file:
-                content_json: list = json.loads(advice_file.read())
+            with open(Advice._json_advice_file_path, "r") as advice_file:
+                json_content: list = change_type_to_json(advice_file.read())
         except Exception:
-            return "Something went wrong! The file cannot be read."
+            return Advice._show_old_advices_fail_msg
         else:
-            return content_json
+            return json_content
 
 def main() -> None:
     """ 
