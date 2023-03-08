@@ -1,14 +1,6 @@
 # Trilha Python
 ## Repositório destinado a documentar os trabalhos desenvolvidos na linguagem Python
-### Segue a lista de estudos para desenvolvimento dos trabalhos. Clique nos links para acessar os módulos.
+## Módulo 05 - Interfaces para Dashboard
+## Conteúdo
 
-- Introdução à Linguagem Python e o mercado de trabalho
-- [Módulo 01 - Introdução ao Python](https://github.com/marlissonls/trilha_python/tree/modulo_01)
-- [Módulo 02 - Versionamento de Código](https://github.com/marlissonls/trilha_python/tree/modulo_02)
-- [Módulo 03 - Python avançado](https://github.com/marlissonls/trilha_python/tree/modulo_03)
-- [Módulo 04 - Visão Computacional](https://github.com/marlissonls/trilha_python/tree/modulo_04)
-- [Módulo 05 - Interfaces para dashboard](https://github.com/marlissonls/trilha_python/tree/modulo_05)
-- Banco de dados em Python
-- Analytics
-- Web
-- Inteligência Artificial
+[INÍCIO 🔙](https://github.com/marlissonls/trilha_python/tree/main)
