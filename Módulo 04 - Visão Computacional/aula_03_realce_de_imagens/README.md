@@ -32,7 +32,7 @@ plt.subplot(121),plt.imshow(img1,"gray"),plt.title('Input')
 plt.subplot(122),plt.plot(hf),plt.title('Hist by cv2.calcHist')
 plt.show()
 ```
-![Architecture -> hist](./aula03fig01.png)
+![Architecture -> hist](./img/aula03fig01.png)
 
 ### Hist no matplotlib
 ```
@@ -43,4 +43,31 @@ plt.subplot(121),plt.imshow(img,"gray"),plt.title('Input')
 plt.subplot(122),plt.hist(img.ravel(),256,[0,256]),plt.title('Hist by plt.hist')
 plt.show()
 ```
-![Architecture -> hist](./aula03fig02.png)
+![Architecture -> hist](./img/aula03fig02.png)
+
+### Filtro Mediado
+
+- Substitui o nível de cinza de cada pixel pelo nível de cinza mediano em uma vizinhança do pixel.
+- O nível mediano de um conjunto de valores é tal que exista metade dos valores menores e metade dos valores maiores.
+- Ruído é impulsivo (do tipo não contínuo, consistindo em pulsos irregulares de grandes amplitudes),
+- Ruído do tipo sal e pimenta (representando descontinuidades abruptas e isoladas na imagem).
+
+### Aplicação de Filtro Mediado
+
+Imagem original:
+![Elaine](./img/elaineorigclean.png)
+
+Imagem com ruído:
+![Elaine ruido](./img/elaineruido.png)
+
+Imagem com aplicação de Filtro Mediado 3x3:
+```
+np.vstack([np.hstack([cv2.medianBlur(img, 3)])])
+```
+![Elaine ruido](./img/elaine3x3.png)
+
+Imagem com aplicação de Filtro Mediado 5x5 após aplicação de Filtro 3x3:
+```
+np.vstack([np.hstack([cv2.medianBlur(img, 5)])])
+```
+![Elaine ruido](./img/elaine3x5.png)
