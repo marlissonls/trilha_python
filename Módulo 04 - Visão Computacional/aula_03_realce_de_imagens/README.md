@@ -54,19 +54,19 @@ plt.show()
 
 ### Aplicação de Filtro Mediado
 
-- Imagem original:
+#### Imagem original:
 ![Elaine](./img/elaineorigclean.png)
 
-- Imagem com ruído:
+#### Imagem com ruído:
 ![Elaine ruido](./img/elaineruido.png)
 
-- Imagem com aplicação de Filtro Mediado 3x3:
+#### Imagem com aplicação de Filtro Mediado 3x3:
 ```
 np.vstack([np.hstack([cv2.medianBlur(img, 3)])])
 ```
 ![Elaine ruido](./img/elaine3x3.png)
 
-- Imagem com aplicação de Filtro Mediado 5x5 após aplicação de Filtro 3x3:
+#### Imagem com aplicação de Filtro Mediado 5x5 após aplicação de Filtro 3x3:
 ```
 np.vstack([np.hstack([cv2.medianBlur(img, 5)])])
 ```
