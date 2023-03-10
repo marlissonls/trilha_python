@@ -36,14 +36,14 @@ def set_new_image_path(image_path_name: str) -> str:
     extension: str = img_name_splited[1]
     return f'./{path}/enhanced_{name}.{extension}'
 
-def enhance_image(image: np.ndarray, gaussian_filter: int) -> np.ndarray:
+def enhance_image(image: np.ndarray, median_filter: int) -> np.ndarray:
     """
     Returns an enhanced matrix of an image.
 
         image: a base image matrix.\n
-        gaussian_filter: a number in the list: [3, 5, 7, 9, 11].
+        median_filter: a number in the list: [3, 5, 7, 9, 11].
     """
-    return np.vstack([np.hstack([cv2.medianBlur(image, gaussian_filter)])])
+    return np.vstack([np.hstack([cv2.medianBlur(image, median_filter)])])
 
 def plot_image_configs(image: np.ndarray, title: str) -> None:
     """
@@ -62,16 +62,16 @@ def plot_display() -> None:
     """
     plt.show()
 
-def new_image_enhancement(path: str, gaussian_filter: int) -> str:
+def new_image_enhancement(path: str, median_filter: int) -> str:
     """
     Generates a new enhanced image file from a base image file and returns the path of the new image file.
 
         path: a string of the form './img/imgName.imgExtension' indicating the path of an image.\n
-        gaussian_filter: a number in the list: [3, 5, 7, 9, 11].
+        median_filter: a number in the list: [3, 5, 7, 9, 11].
     """
     img_path: str = path
     img_matrix: np.ndarray = read_image(img_path)
-    enhanced_img_matrix: np.ndarray = enhance_image(img_matrix, gaussian_filter)
+    enhanced_img_matrix: np.ndarray = enhance_image(img_matrix, median_filter)
     enhanced_img_path: str = write_image(enhanced_img_matrix, img_path)
 
     plot_image_configs(img_matrix, img_path)
@@ -82,6 +82,6 @@ def new_image_enhancement(path: str, gaussian_filter: int) -> str:
 # see the __init__.py file with this entry point ./__init__.py
 """ if __name__ == '__main__':
     image_base_path: str = './img/elaineruido.png'
-    select_gaussian_filter: list = [3, 5, 7, 9, 11]
-    new_enhanced_img_path: str = new_image_enhancement(image_base_path, select_gaussian_filter[0])
-    another_enhanced_img_path: str = new_image_enhancement(new_enhanced_img_path, select_gaussian_filter[0]) """
+    select_median_filter: list = [3, 5, 7, 9, 11]
+    new_enhanced_img_path: str = enhance.new_image_enhancement(image_base_path, select_median_filter[0])
+    another_enhanced_img_path: str = enhance.new_image_enhancement(new_enhanced_img_path, select_median_filter[0]) """

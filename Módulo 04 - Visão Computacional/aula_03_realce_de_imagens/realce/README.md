@@ -10,14 +10,14 @@
 - O histograma de uma imagem pode ser representado por um gráfico de barras que mostra a quantidade de pixels que apresentam um determinado nível de cinza.
 - Através da visualização do histograma de uma imagem obtém-se uma "ideia" da qualidade da imagem com relação ao seu nível de contraste e ao seu brilho médio (se a imagem é clara ou escura).
 
-### Filtro Mediado
+### Filtro Mediano
 
 - Substitui o nível de cinza de cada pixel pelo nível de cinza mediano em uma vizinhança do pixel.
 - O nível mediano de um conjunto de valores é tal que exista metade dos valores menores e metade dos valores maiores.
 - Ruído é impulsivo (do tipo não contínuo, consistindo em pulsos irregulares de grandes amplitudes),
 - Ruído do tipo sal e pimenta (representando descontinuidades abruptas e isoladas na imagem).
 
-### Aplicação de Filtro Mediado
+### Aplicação de Filtro Mediano
 
 #### Imagem original:
 ![Elaine](../img/elaineorigclean.png)
