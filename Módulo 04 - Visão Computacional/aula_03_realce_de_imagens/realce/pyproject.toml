@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 opencv-python = "^4.7.0.72"
 matplotlib = "^3.7.1"
+pyqt5 = "^5.15.9"
 
 [build-system]
 requires = ["poetry-core"]
