@@ -2,4 +2,4 @@
 
 ## Métodos Limiarização e Watershed
 
-[imagem usada](./coins.jpg)
+![imagem usada](./coins.jpg)
