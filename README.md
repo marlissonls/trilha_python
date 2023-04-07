@@ -8,7 +8,7 @@
 - [Módulo 03 - Python avançado](https://github.com/marlissonls/trilha_python/tree/modulo_03)
 - [Módulo 04 - Visão Computacional](https://github.com/marlissonls/trilha_python/tree/modulo_04)
 - [Módulo 05 - Interfaces para dashboard](https://github.com/marlissonls/trilha_python/tree/modulo_05)
-- Banco de dados em Python
+- [Módulo 06 - Banco de Dados em Python](https://github.com/marlissonls/trilha_python/tree/modulo_06)
 - Analytics
 - Web
 - Inteligência Artificial
