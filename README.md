@@ -1,6 +1,6 @@
 # Trilha Python
 ## Repositório destinado a documentar os trabalhos desenvolvidos na linguagem Python
-## Módulo 04 - Visão Computacional
+## Módulo 06 - Banco de Dados em Python
 ## Conteúdo
 - Banco de Dados PostgreSql
 
