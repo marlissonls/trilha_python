@@ -10,9 +10,9 @@ db_queries = DbQueries(db_operations)
 db_services = DbServices(db_operations, db_queries)
 
 table1 = {
-"name": "students",
-"columns": "id SERIAL PRIMARY KEY, first_name VARCHAR(120) NOT NULL, last_name VARCHAR(120) NOT NULL",
-"foreigns": [],
+    "name": "students",
+    "columns": "id SERIAL PRIMARY KEY, first_name VARCHAR(120) NOT NULL, last_name VARCHAR(120) NOT NULL",
+    "foreigns": [],
 }
 
 table2 = {
