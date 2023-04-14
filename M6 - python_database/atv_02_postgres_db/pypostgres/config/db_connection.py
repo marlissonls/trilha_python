@@ -1,13 +1,9 @@
-import psycopg2
-from os import getenv
-import dotenv
+class DbConnection:
+    def __init__(self, connection):
+        self.connect = connection
 
-dotenv.load_dotenv()
-
-db_connect = psycopg2.connect(
-    host = getenv('DB_HOST'),
-    port = getenv('DB_PORT'),
-    database = getenv('DB_DATABASE'),
-    user = getenv('DB_USER'),
-    password = getenv('DB_PASSWORD')
-)
+    def connect_db(self):
+        return self.connect
+    
+    def disconnect_db(self):
+        return self.connect.close()
