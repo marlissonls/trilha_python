@@ -1,7 +1,3 @@
-"""
-Provides DOTENV CONFIG
-"""
-
 import psycopg2
 from os import getenv
 import dotenv
