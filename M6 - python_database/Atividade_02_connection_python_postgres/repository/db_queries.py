@@ -9,31 +9,31 @@ class DbQueries:
         self.db_operations.execute(db_cursor, query)
     
     def create_client_query(self, db_cursor, first_name, last_name, email):
-        query = f'INSERT INTO register (first_name, last_name, email) VALUES (%s, %s, %s) RETURNING *;'
+        query = f'INSERT INTO clients (first_name, last_name, email) VALUES (%s, %s, %s) RETURNING *;'
         values = [first_name, last_name, email]
         self.db_operations.execute(db_cursor, query, values)
-        return self.db_operations.fetch(db_cursor)
+        return self.db_operations.fetchall(db_cursor)
     
     def get_clients_list_query(self, db_cursor):
-        query = f'SELECT * FROM register;'
+        query = f'SELECT * FROM clients;'
         values = None
         self.db_operations.execute(db_cursor, query, values)
         return self.db_operations.fetchall(db_cursor)
     
     def get_client_by_id_query(self, db_cursor, id):
-        query = f'SELECT * FROM register WHERE id = %s;'
+        query = f'SELECT * FROM clients WHERE id = %s;'
         values = [id]
         self.db_operations.execute(db_cursor, query, values)
-        return self.db_operations.fetch(db_cursor)
+        return self.db_operations.fetchall(db_cursor)
     
     def update_client_data_by_id_query(self, db_cursor, id, first_name, last_name, email):
-        query = f'UPDATE register SET first_name = %s, last_name = %s, email = %s WHERE id = %s RETURNING *;'
+        query = f'UPDATE clients SET first_name = %s, last_name = %s, email = %s WHERE id = %s RETURNING *;'
         values = [first_name, last_name, email, id]
         self.db_operations.execute(db_cursor, query, values)
-        return self.db_operations.fetch(db_cursor)
+        return self.db_operations.fetchall(db_cursor)
     
     def delete_client_by_id_query(self, db_cursor, id):
-        query = f'DELETE FROM register WHERE id = %s RETURNING *;'
+        query = f'DELETE FROM clients WHERE id = %s RETURNING *;'
         values = [id]
         self.db_operations.execute(db_cursor, query, values)
-        return self.db_operations.fetch(db_cursor)
+        return self.db_operations.fetchall(db_cursor)

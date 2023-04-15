@@ -1,24 +1,29 @@
 from service.db_service import DbServices
+from displaydata.displaydata import DisplayData
 
 class CrudOperations:
-    def __init__(self, db_service: DbServices):
+    def __init__(self, db_service: DbServices, display_data: DisplayData):
         self.services: DbServices = db_service
+        self.display_data: DisplayData = display_data
 
     def create_client(self):
         first_name = input("Informe o primeiro nome do cliente: ")
         last_name = input("Informe o sobrenome do cliente: ")
         email = input("Informe e-mail do cliente: ")
         result = self.services.create_client_service(first_name, last_name, email)
-        print(result)
+        self.display_data.generate_table(result)
+        #print(result)
 
     def get_clients_list(self):
         result = self.services.get_clients_list_service()
-        print(result)
+        self.display_data.generate_table(result)
+        #print(result)
     
     def get_client_by_id(self):
         id = int(input("Informe o ID do cliente: "))
         result = self.services.get_client_by_id_service(id)
-        print(result)
+        self.display_data.generate_table(result)
+        #print(result)
 
     def update_client_data_by_id(self):
         id = int(input("Informe o ID do cliente a ter dados atualizados: "))
@@ -26,12 +31,14 @@ class CrudOperations:
         last_name = input("Atualize o sobrenome do cliente: ")
         email = input("Atualize e-mail do cliente: ")
         result = self.services.update_client_data_by_id_service(id, first_name, last_name, email)
-        print(result)
+        self.display_data.generate_table(result)
+        #print(result)
 
     def delete_client_by_id(self):
         id = int(input("Informe o ID do cliente a ser deletado: "))
         result = self.services.delete_client_by_id_service(id)
-        print(result)
+        self.display_data.generate_table(result)
+        #print(result)
     
     def operate_crud(self):
         while True:
@@ -44,6 +51,7 @@ class CrudOperations:
             print("6 - Encerrar operações.")
 
             option = input("\nSelecione o número de uma das operações: ")
+            print('\n')
             match option:
                 case '1':
                     self.create_client()
@@ -56,8 +64,8 @@ class CrudOperations:
                 case '5':
                     self.delete_client_by_id()
                 case '6':
-                    print("\nOperações encerradas!")
+                    print("Operações encerradas!")
                     self.services.db_operations.connection.disconnect_db()
                     break
                 case _:
-                    print("\nOpção inválida!")
+                    print("Opção inválida!")
