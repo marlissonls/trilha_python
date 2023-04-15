@@ -12,18 +12,15 @@ class CrudOperations:
         email = input("Informe e-mail do cliente: ")
         result = self.services.create_client_service(first_name, last_name, email)
         self.display_data.generate_table(result)
-        #print(result)
 
     def get_clients_list(self):
         result = self.services.get_clients_list_service()
         self.display_data.generate_table(result)
-        #print(result)
     
     def get_client_by_id(self):
         id = int(input("Informe o ID do cliente: "))
         result = self.services.get_client_by_id_service(id)
         self.display_data.generate_table(result)
-        #print(result)
 
     def update_client_data_by_id(self):
         id = int(input("Informe o ID do cliente a ter dados atualizados: "))
@@ -32,13 +29,11 @@ class CrudOperations:
         email = input("Atualize e-mail do cliente: ")
         result = self.services.update_client_data_by_id_service(id, first_name, last_name, email)
         self.display_data.generate_table(result)
-        #print(result)
 
     def delete_client_by_id(self):
         id = int(input("Informe o ID do cliente a ser deletado: "))
         result = self.services.delete_client_by_id_service(id)
         self.display_data.generate_table(result)
-        #print(result)
     
     def operate_crud(self):
         while True:
