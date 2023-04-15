@@ -1,62 +1,85 @@
-from repository.db_operations import DbOperations
 from repository.db_queries import DbQueries
+from repository.db_operations import DbOperations
 
 class DbServices:
-    def __init__(self, _db_operations: DbOperations, _db_queries: DbQueries):
-        self.db_operations: DbOperations = _db_operations
+    def __init__(self, _db_queries: DbQueries, _db_operations: DbOperations):
         self.db_queries: DbQueries = _db_queries
+        self.db_operations: DbOperations = _db_operations
 
     def create_table(self, table):
         db_cursor = self.db_operations.connect()
         try:
             self.db_queries.create_table(db_cursor, table)
         except Exception as Error:
+            self.db_operations.rollback()
             return Error
         else:
+            self.db_operations.commit()
             return f'CREATE TABLE {table["name"]}'
         finally:
             self.db_operations.release(db_cursor)
 
-    def create_client(self, first_name, last_name, email):
+    def create_client_service(self, first_name, last_name, email):
         db_cursor = self.db_operations.connect()
         try:
-            result = self.db_queries.create_client(db_cursor, first_name, last_name, email)
+            result = self.db_queries.create_client_query(db_cursor, first_name, last_name, email)
         except Exception as Error:
+            self.db_operations.rollback()
             return Error
         else:
+            self.db_operations.commit()
             return result
         finally:
             self.db_operations.release(db_cursor)
     
-    def get_clients(self):
+    def get_clients_list_service(self):
         db_cursor = self.db_operations.connect()
         try:
-            result = self.db_queries.get_clients(db_cursor)
+            result = self.db_queries.get_clients_list_query(db_cursor)
         except Exception as Error:
+            self.db_operations.rollback()
             return Error
         else:
+            self.db_operations.commit()
+            return result
+        finally:
+            self.db_operations.release(db_cursor)
+    
+    def get_client_by_id_service(self, id):
+        db_cursor = self.db_operations.connect()
+        try:
+            result = self.db_queries.get_client_by_id_query(db_cursor, id)
+        except Exception as Error:
+            self.db_operations.rollback()
+            return Error
+        else:
+            self.db_operations.commit()
             return result
         finally:
             self.db_operations.release(db_cursor)
 
-    def update_client_data(self, id, first_name, last_name, email):
+    def update_client_data_by_id_service(self, id, first_name, last_name, email):
         db_cursor = self.db_operations.connect()
         try:
-            result = self.db_queries.update_client_data(db_cursor, id, first_name, last_name, email)
+            result = self.db_queries.update_client_data_by_id_query(db_cursor, id, first_name, last_name, email)
         except Exception as Error:
+            self.db_operations.rollback()
             return Error
         else:
+            self.db_operations.commit()
             return result
         finally:
             self.db_operations.release(db_cursor)
     
-    def delete_client(self, id):
+    def delete_client_by_id_service(self, id):
         db_cursor = self.db_operations.connect()
         try:
-            result = self.db_queries.delete_client(db_cursor, id)
+            result = self.db_queries.delete_client_by_id_query(db_cursor, id)
         except Exception as Error:
+            self.db_operations.rollback()
             return Error
         else:
+            self.db_operations.commit()
             return result
         finally:
             self.db_operations.release(db_cursor)

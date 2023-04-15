@@ -8,7 +8,7 @@ from crud.crud_operations import CrudOperations
 db_connection = DbConnection(connection_config)
 db_operations = DbOperations(db_connection)
 db_queries = DbQueries(db_operations)
-db_services = DbServices(db_operations, db_queries)
+db_services = DbServices(db_queries, db_operations)
 crud_operations = CrudOperations(db_services)
 
 registration_table = {
@@ -24,11 +24,9 @@ registration_table = {
 
 if __name__ == '__main__':
     try:
-        result:str = db_services.create_table(registration_table)
+        result: str = db_services.create_table(registration_table)
     except Exception as Error:
         print(Error)
-        db_operations.rollback()
     else:
         print(result)
-        db_operations.commit()
         crud_operations.operate_crud()

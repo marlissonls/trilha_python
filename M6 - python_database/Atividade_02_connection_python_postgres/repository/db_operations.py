@@ -5,7 +5,7 @@ class DbOperations:
         self.connection = _db_connection
         self.db_connect = self.connection.connect_db()
 
-    def execute (self, db_cursor, query:str, values:list|None = None):
+    def execute(self, db_cursor, query: str, values: list | None = None):
         if values is None:
             db_cursor.execute(query)
         else:
