@@ -3,7 +3,7 @@
 
 ### Crie um banco de dados no PostgreSQL (Ver arquivo PSQL.cmd) (terminal psql):
 ```
-CREATE TABLE my_database;
+CREATE DATABASE my_database;
 ```
 
 ### Crie um arquivo chamado ".env" com os valores das variáveis de ambiente:
