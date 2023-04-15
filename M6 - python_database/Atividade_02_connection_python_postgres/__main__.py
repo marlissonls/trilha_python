@@ -30,5 +30,5 @@ if __name__ == '__main__':
     except Exception as Error:
         print(Error)
     else:
-        print(result)
+        print(f"A tabela '{clients_table['name']}' foi criada ou já existe no banco de dados.")
         crud_operations.operate_crud()
