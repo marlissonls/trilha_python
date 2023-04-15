@@ -3,21 +3,23 @@ from config.db_connection import DbConnection
 from repository.db_operations import DbOperations
 from repository.db_queries import DbQueries
 from service.db_service import DbServices
+from crud.crud_operations import CrudOperations
 
 db_connection = DbConnection(connection_config)
-db_operations = DbOperations(db_connection.connect_db())
+db_operations = DbOperations(db_connection)
 db_queries = DbQueries(db_operations)
 db_services = DbServices(db_operations, db_queries)
+crud_operations = CrudOperations(db_services)
 
 registration_table = {
-"name": "register",
-"columns": """
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(120) NOT NULL, 
-    last_name VARCHAR(120) NOT NULL,
-    email VARCHAR(120) NOT NULL
-""",
-"foreigns": [],
+    "name": "register",
+    "columns": """
+        id SERIAL PRIMARY KEY,
+        first_name VARCHAR(120) NOT NULL, 
+        last_name VARCHAR(120) NOT NULL,
+        email VARCHAR(120) NOT NULL
+    """,
+    "foreigns": [],
 }
 
 if __name__ == '__main__':
@@ -29,5 +31,4 @@ if __name__ == '__main__':
     else:
         print(result)
         db_operations.commit()
-
-db_connection.disconnect_db()
+        crud_operations.operate_crud()

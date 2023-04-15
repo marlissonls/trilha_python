@@ -1,6 +1,9 @@
+from config.db_connection import DbConnection
+
 class DbOperations:
-    def __init__(self, _db_connect):
-        self.db_connect = _db_connect
+    def __init__(self, _db_connection: DbConnection):
+        self.connection = _db_connection
+        self.db_connect = self.connection.connect_db()
 
     def execute (self, db_cursor, query:str, values:list|None = None):
         if values is None:
