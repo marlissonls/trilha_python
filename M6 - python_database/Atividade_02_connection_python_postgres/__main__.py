@@ -19,16 +19,16 @@ clients_table = {
         id SERIAL PRIMARY KEY,
         first_name VARCHAR(120) NOT NULL, 
         last_name VARCHAR(120) NOT NULL,
-        email VARCHAR(120) NOT NULL
+        email VARCHAR(120) NOT NULL UNIQUE
     """,
     "foreigns": [],
 }
 
 if __name__ == '__main__':
     try:
-        result: str = db_services.create_table(clients_table)
+        result = db_services.create_table(clients_table)
     except Exception as Error:
         print(Error)
     else:
-        print(f"A tabela '{clients_table['name']}' foi criada ou já existe no banco de dados.")
+        print(result)
         crud_operations.operate_crud()

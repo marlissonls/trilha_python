@@ -12,10 +12,10 @@ class DbServices:
             self.db_queries.create_table(db_cursor, table)
         except Exception as Error:
             self.db_operations.rollback()
-            return Error
+            raise Error
         else:
             self.db_operations.commit()
-            return f'CREATE TABLE {table["name"]}'
+            return f"A tabela '{table['name']}' foi criada ou já existe no banco de dados."
         finally:
             self.db_operations.release(db_cursor)
 
@@ -25,7 +25,7 @@ class DbServices:
             result = self.db_queries.create_client_query(db_cursor, first_name, last_name, email)
         except Exception as Error:
             self.db_operations.rollback()
-            return Error
+            raise Error
         else:
             self.db_operations.commit()
             return result
@@ -38,7 +38,7 @@ class DbServices:
             result = self.db_queries.get_clients_list_query(db_cursor)
         except Exception as Error:
             self.db_operations.rollback()
-            return Error
+            raise Error
         else:
             self.db_operations.commit()
             return result
@@ -51,7 +51,7 @@ class DbServices:
             result = self.db_queries.get_client_by_id_query(db_cursor, id)
         except Exception as Error:
             self.db_operations.rollback()
-            return Error
+            raise Error
         else:
             self.db_operations.commit()
             return result
@@ -64,7 +64,7 @@ class DbServices:
             result = self.db_queries.update_client_data_by_id_query(db_cursor, id, first_name, last_name, email)
         except Exception as Error:
             self.db_operations.rollback()
-            return Error
+            raise Error
         else:
             self.db_operations.commit()
             return result
@@ -77,7 +77,7 @@ class DbServices:
             result = self.db_queries.delete_client_by_id_query(db_cursor, id)
         except Exception as Error:
             self.db_operations.rollback()
-            return Error
+            raise Error
         else:
             self.db_operations.commit()
             return result

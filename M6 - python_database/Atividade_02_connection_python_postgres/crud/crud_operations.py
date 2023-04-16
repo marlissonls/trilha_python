@@ -11,9 +11,11 @@ class CrudOperations:
             first_name = input("Informe o primeiro nome do cliente: ")
             last_name = input("Informe o sobrenome do cliente: ")
             email = input("Informe e-mail do cliente: ")
+            if len(first_name) < 3 or len(last_name) < 3 or len(email) < 3 or '@' not in email:
+                raise Exception('Dados incorretos!')
             result = self.services.create_client_service(first_name, last_name, email)
         except Exception as Error:
-            print('Erro ao criar cliente: ' + Error)
+            print('Erro:', Error)
         else:
             self.display_data.generate_table(result)
 
@@ -21,18 +23,24 @@ class CrudOperations:
         try:
             result = self.services.get_clients_list_service()
         except Exception as Error:
-            print('Erro ao efetuar busca de clientes: ' + Error)
+            print('Erro:', Error)
         else: 
             self.display_data.generate_table(result)
     
-    def get_client_by_id(self):
+    def get_client_by_id(self, id = None):
         try:
-            id = int(input("Informe o ID do cliente: "))
+            if id is None:
+                id = int(input("Informe o ID do cliente: "))
             result = self.services.get_client_by_id_service(id)
+        except ValueError:
+            print('Erro: O ID informado é inválido!')
+            return False
         except Exception as Error:
-            print('Erro ao buscar cliente: ' + Error)
+            print('Erro:', Error)
+            return False
         else:
             self.display_data.generate_table(result)
+            return True
 
     def update_client_data_by_id(self):
         try:
@@ -40,18 +48,39 @@ class CrudOperations:
             first_name = input("Atualize o primeiro nome do cliente: ")
             last_name = input("Atualize o sobrenome do cliente: ")
             email = input("Atualize e-mail do cliente: ")
+            if len(first_name) < 3 or len(last_name) < 3 or (len(email) < 3 or '@' not in email):
+                raise Exception('Dados incorretos!')
             result = self.services.update_client_data_by_id_service(id, first_name, last_name, email)
+        except ValueError:
+            print('Erro: O ID informado é inválido!')
         except Exception as Error:
-            print('Erro ao atualizar cliente: ' + Error)
+            print('Erro:', Error)
         else:
             self.display_data.generate_table(result)
 
     def delete_client_by_id(self):
         try:
             id = int(input("Informe o ID do cliente a ser deletado: "))
-            result = self.services.delete_client_by_id_service(id)
+            option = None
+            if self.get_client_by_id(id):
+                print('Gostaria de deletar este cliente?')
+                print('1 - Sim.')
+                print('2 - Não!')
+                option = input('Digite o número da sua uma escolha: ')
+            else:
+                return
+            if option == '1':
+                result = self.services.delete_client_by_id_service(id)
+            elif option == '2':
+                print('Ok. O cliente continua ativo.')
+                return
+            else:
+                print('Opção inválida!')
+                return
+        except ValueError:
+            print('Erro: O ID informado é inválido!')
         except Exception as Error:
-            print('Erro ao deletar cliente: ' + Error)
+            print('Erro:', Error)
         else:
             self.display_data.generate_table(result)
     
