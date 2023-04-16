@@ -7,33 +7,53 @@ class CrudOperations:
         self.display_data: DisplayData = display_data
 
     def create_client(self):
-        first_name = input("Informe o primeiro nome do cliente: ")
-        last_name = input("Informe o sobrenome do cliente: ")
-        email = input("Informe e-mail do cliente: ")
-        result = self.services.create_client_service(first_name, last_name, email)
-        self.display_data.generate_table(result)
+        try:
+            first_name = input("Informe o primeiro nome do cliente: ")
+            last_name = input("Informe o sobrenome do cliente: ")
+            email = input("Informe e-mail do cliente: ")
+            result = self.services.create_client_service(first_name, last_name, email)
+        except Exception as Error:
+            print('Erro ao criar cliente: ' + Error)
+        else:
+            self.display_data.generate_table(result)
 
     def get_clients_list(self):
-        result = self.services.get_clients_list_service()
-        self.display_data.generate_table(result)
+        try:
+            result = self.services.get_clients_list_service()
+        except Exception as Error:
+            print('Erro ao efetuar busca de clientes: ' + Error)
+        else: 
+            self.display_data.generate_table(result)
     
     def get_client_by_id(self):
-        id = int(input("Informe o ID do cliente: "))
-        result = self.services.get_client_by_id_service(id)
-        self.display_data.generate_table(result)
+        try:
+            id = int(input("Informe o ID do cliente: "))
+            result = self.services.get_client_by_id_service(id)
+        except Exception as Error:
+            print('Erro ao buscar cliente: ' + Error)
+        else:
+            self.display_data.generate_table(result)
 
     def update_client_data_by_id(self):
-        id = int(input("Informe o ID do cliente a ter dados atualizados: "))
-        first_name = input("Atualize o primeiro nome do cliente: ")
-        last_name = input("Atualize o sobrenome do cliente: ")
-        email = input("Atualize e-mail do cliente: ")
-        result = self.services.update_client_data_by_id_service(id, first_name, last_name, email)
-        self.display_data.generate_table(result)
+        try:
+            id = int(input("Informe o ID do cliente a ter dados atualizados: "))
+            first_name = input("Atualize o primeiro nome do cliente: ")
+            last_name = input("Atualize o sobrenome do cliente: ")
+            email = input("Atualize e-mail do cliente: ")
+            result = self.services.update_client_data_by_id_service(id, first_name, last_name, email)
+        except Exception as Error:
+            print('Erro ao atualizar cliente: ' + Error)
+        else:
+            self.display_data.generate_table(result)
 
     def delete_client_by_id(self):
-        id = int(input("Informe o ID do cliente a ser deletado: "))
-        result = self.services.delete_client_by_id_service(id)
-        self.display_data.generate_table(result)
+        try:
+            id = int(input("Informe o ID do cliente a ser deletado: "))
+            result = self.services.delete_client_by_id_service(id)
+        except Exception as Error:
+            print('Erro ao deletar cliente: ' + Error)
+        else:
+            self.display_data.generate_table(result)
     
     def operate_crud(self):
         while True:
