@@ -8,12 +8,12 @@ class CrudOperations:
             last_name = input("Informe o sobrenome do cliente: ")
             email = input("Informe e-mail do cliente: ")
             if len(first_name) < 3 or len(last_name) < 3 or len(email) < 3 or '@' not in email:
-                raise Exception('Dados incorretos!')
+                raise Exception('Dados incorretos!\n')
             result = self.services.create_client_service(first_name, last_name, email)
         except Exception as Error:
             print('Erro:', Error)
         else:
-            print(result)
+            print('\n', result.inserted_id, '\n', sep='')
             #self.display_data.generate_table(result)
 
     def get_clients(self):
@@ -22,52 +22,59 @@ class CrudOperations:
         except Exception as Error:
             print('Erro:', Error)
         else:
-            print(result)
+            for document in result:
+                print(document)
+            print('\n')
             #self.display_data.generate_table(result)
 
     def get_clients_by_filter(self):
         try:
-            result = self.services.get_clients_by_filter_service(attribute, rule)
+            attribute = input("Informe um dos atributos: first_name, last_name ou email? ")
+            rule = input("Informe o argumento da busca. ex1: james: ")
+            result = self.services.get_clients_by_filter_service(attribute, rule)    
         except Exception as Error:
-            print(result)
+            print('\n','Erro: ', Error, sep="")
+        else:
+            print('\n')
+            for document in result:
+                print(document)
+            print('\n')
             #self.display_data.generate_table(result)
 
-    def get_client_by_id(self):
+    def get_client_by_id(self, id = None):
         try:
             if id is None:
-                id = int(input("Informe o ID do cliente: "))
+                id = input("Informe o ID do cliente: ")
             result = self.services.get_client_by_id_service(id)
-        except ValueError:
-            print('Erro: O ID informado é inválido!')
-            return False
         except Exception as Error:
-            print('Erro:', Error)
+            print('\n', 'Erro: ', Error, '\n', sep="")
             return False
         else:
-            print(result)
+            print('\n', result, '\n', sep="")
             #self.display_data.generate_table(result)
             return True
 
     def update_client_by_id(self):
         try:
-            id = int(input("Informe o ID do cliente a ter dados atualizados: "))
+            id = input("Informe o ID do cliente a ter dados atualizados: ")
             first_name = input("Atualize o primeiro nome do cliente: ")
             last_name = input("Atualize o sobrenome do cliente: ")
             email = input("Atualize e-mail do cliente: ")
             if len(first_name) < 3 or len(last_name) < 3 or (len(email) < 3 or '@' not in email):
                 raise Exception('Dados incorretos!')
             result = self.services.update_client_by_id_service(id, first_name, last_name, email)
-        except ValueError:
-            print('Erro: O ID informado é inválido!')
         except Exception as Error:
             print('Erro:', Error)
         else:
-            print(result)
+            if result.acknowledged:
+                print("Operação de atualização bem sucedida\n")
+            else:
+                print("Falha na operação de atualização\n")
             #self.display_data.generate_table(result)
 
     def delete_client_by_id(self):
         try:
-            id = int(input("Informe o ID do cliente a ser deletado: "))
+            id = input("Informe o ID do cliente a ser deletado: ")
             option = None
             if self.get_client_by_id(id):
                 print('Gostaria de deletar este cliente?')
@@ -79,22 +86,22 @@ class CrudOperations:
             if option == '1':
                 result = self.services.delete_client_by_id_service(id)
             elif option == '2':
-                print('Ok. O cliente continua ativo.')
+                print('Ok. O cliente continua ativo.\n')
                 return
             else:
-                print('Opção inválida!')
+                print('Opção inválida!\n')
                 return
-        except ValueError:
-            print('Erro: O ID informado é inválido!')
         except Exception as Error:
             print('Erro:', Error)
         else:
-            print(result)
+            if result.acknowledged:
+                print("\nOperação de exclusão bem sucedida!\n")
+            else:
+                print("\nFalha na operação de exclusão!\n")
             #self.display_data.generate_table(result)
 
     def operate_crud(self):
         while True:
-            print("\n")
             print("1 - Cadastrar cliente.")
             print("2 - Ver a lista de clientes.")
             print("3 - Filtrar clientes por nome, sobrenome ou email.")
