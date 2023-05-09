@@ -37,7 +37,7 @@ class FilaListaEncadeada:
         self.lista = ListaEncadeadaExtremidadeDupla()
 
     def fila_vazia(self):
-        return self.lista.lista_vazia()
+        return self.lista.__lista_vazia()
   
     def enfileirar(self, valor):
         self.lista.insere_final(valor)
@@ -47,7 +47,7 @@ class FilaListaEncadeada:
 
     def ver_inicio(self):
         if self.lista.primeiro == None:
-            return -1
+            return 'A fila está vazia'
         return self.lista.primeiro.valor
 
 fila = FilaListaEncadeada()
