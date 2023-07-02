@@ -1,0 +1,6 @@
+db_otimization=# select * from compare_results;
+ requisicao | um_mil_registros | dez_mil_registros | cem_mil_registros | um_milhao_registros 
+------------+------------------+-------------------+-------------------+---------------------
+ A          |            0.406 |             2.936 |            18.987 |              97.272
+ B          |            0.044 |             0.056 |             0.062 |               0.079
+ C          |            0.423 |             1.817 |            16.034 |              75.909

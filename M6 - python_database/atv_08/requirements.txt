@@ -1,2 +1,1 @@
-pandas
-sqlalchemy
+psycopg2
