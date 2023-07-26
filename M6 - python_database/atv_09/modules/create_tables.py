@@ -22,8 +22,24 @@ def create_tables():
         cem_mil_registros DOUBLE PRECISION NOT NULL,
         um_milhao_registros DOUBLE PRECISION NOT NULL
     );
+
+    CREATE EXTENSION IF NOT EXISTS pg_materializedview;
+
+    CREATE VIEW view_dados_usuario AS
+    SELECT u.id, u.name, u.email, STRING_AGG(t.telefone, ', ') AS telefones
+    FROM usuario AS u
+    INNER JOIN telefone AS t ON u.id = t.userid
+    GROUP BY u.id, u.name, u.email;
+
+    CREATE MATERIALIZED VIEW view_materializada_dados_usuario AS
+    SELECT * FROM view_dados_usuario;
     '''
     cur = conn.cursor()
     cur.execute(tables_query)
     conn.commit()
     cur.close()
+
+    print('''
+        Tabelas criadas: usuario e contato.
+        Views criadas: view_dados_usuario e view_materializada_dados_usuario.
+    ''')

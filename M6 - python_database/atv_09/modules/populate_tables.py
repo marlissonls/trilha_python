@@ -14,5 +14,7 @@ def populate_tables(population):
         userid = cur.fetchone()[0]
         cur.execute('INSERT INTO contato (userid, telefone) VALUES (%s, %s), (%s, %s);', (userid, telefone1, userid, telefone2))
     
+    cur.execute('REFRESH MATERIALIZED VIEW view_materializada_dados_usuario;')
+    
     conn.commit()
     cur.close()
