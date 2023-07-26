@@ -1,4 +1,4 @@
-from db import conn
+from modules.db import conn
 
 def show_performance_results():
     search = 'SELECT * FROM compare_results;'

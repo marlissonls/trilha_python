@@ -1,4 +1,4 @@
-from db import conn
+from modules.db import conn
 
 def analyse_views_performance(option, id):
     value = id

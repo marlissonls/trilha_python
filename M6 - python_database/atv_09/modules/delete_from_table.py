@@ -1,4 +1,4 @@
-from db import conn
+from modules.db import conn
 
 def delete_from_table():
     cur = conn.cursor()

@@ -1,4 +1,4 @@
-from db import conn
+from modules.db import conn
 import random
 
 def populate_tables(population):
