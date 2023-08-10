@@ -9,6 +9,6 @@
 - [Módulo 04 - Visão Computacional](https://github.com/marlissonls/trilha_python/tree/modulo_04)
 - [Módulo 05 - Interfaces para Dashboard](https://github.com/marlissonls/trilha_python/tree/modulo_05)
 - [Módulo 06 - Banco de Dados em Python](https://github.com/marlissonls/trilha_python/tree/modulo_06)
-- [Módulo 07 - Estrutas de Dados](https://github.com/marlissonls/trilha_python/tree/modulo_07)
+- [Módulo 07 - Estruturas de Dados](https://github.com/marlissonls/trilha_python/tree/modulo_07)
 - [Módulo 08 - Engenharia de Dados](https://github.com/marlissonls/trilha_python/tree/modulo_08)
-- Django
+- [Módulo 09 - Fast API](https://github.com/marlissonls/trilha_python/tree/modulo_09)
