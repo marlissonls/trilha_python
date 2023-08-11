@@ -1,5 +1,6 @@
 from os import getenv
 
-port = int(getenv('PORT'))
-
-host = getenv('HOST')
+configs = {
+    'host': getenv('HOST'),
+    'port': int(getenv('PORT'))
+}
