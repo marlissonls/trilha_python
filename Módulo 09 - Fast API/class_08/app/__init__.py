@@ -1,14 +1,14 @@
-from fastapi import FastAPI, status
-from base_models import HomePage, UserIn, UserOut
-from typing import Any
-from helpers import hash_decoder, hash_encoder
 from os.path import dirname
+from fastapi import FastAPI, status
+from typing import Any
 import json
-from configs import configs
+from app.base_models import HomePage, UserIn, UserOut
+from app.helpers import hash_decoder, hash_encoder
+from app.configs import configs
 
 port = configs["port"]
 
-SOURCE = dirname(dirname(__file__))
+SOURCE = dirname(__file__)
 
 users_request_body = [
     {"name": "hector", "email": "wheel_chair@yahoomail.com", "password": "HASH_dingdingding"},

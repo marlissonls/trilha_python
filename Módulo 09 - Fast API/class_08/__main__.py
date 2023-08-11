@@ -1,5 +1,5 @@
 from uvicorn import run
-from configs import configs
+from app.configs import configs
 
 port: int = configs["port"]
 

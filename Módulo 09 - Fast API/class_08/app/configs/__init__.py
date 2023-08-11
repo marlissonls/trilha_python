@@ -5,5 +5,6 @@ load_dotenv()
 
 configs = {
     'host': getenv('HOST'),
-    'port': int(getenv('PORT'))
+    'port': int(getenv('PORT')),
+    'secret': getenv('SECRET')
 }

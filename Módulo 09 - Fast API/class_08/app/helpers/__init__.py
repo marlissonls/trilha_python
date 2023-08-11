@@ -1,16 +1,13 @@
-from base_models import UserIn
-from os import getenv
-from dotenv import load_dotenv
+from app.base_models import UserIn
+from app.configs import configs
 from typing import Any
-
-load_dotenv()
 
 def hash_encoder(users: list[UserIn]) -> list[dict[str, Any]]:
 
     users_serializable = [user.model_dump() for user in users]
 
     for user in users_serializable:
-        user['password'] = getenv('SECRET') + user['password']
+        user['password'] = configs['secret'] + user['password']
     
     return users_serializable
 
