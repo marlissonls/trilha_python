@@ -1,37 +1,55 @@
 from fastapi import FastAPI, status
-from base_models import UserIn, UserOut
+from base_models import HomePage, UserIn, UserOut
 from typing import Any
 from helpers import hash_decoder, hash_encoder
 from os.path import dirname
 import json
+from configs import configs
 
-""" req body
-users = [
-    {"name": "hector", "email": "wheel_chair@yahoomail.com.nz", "password": "dingdingding"},
+port = configs["port"]
+
+SOURCE = dirname(dirname(__file__))
+
+users_request_body = [
+    {"name": "hector", "email": "wheel_chair@yahoomail.com", "password": "dingdingding"},
     {"name": "saul", "email": "saul@advmail.com", "password": "kim"},
     {"name": "walterwhite", "email": "babyblue@gmail.com", "password": "heisenberg"},
     {"name": "vince", "email": "yoyoyo@mail.com", "password": "bbad"},
 ]
-"""
 
 api = FastAPI()
 
 
-@api.post("/users/{users}", status_code=status.HTTP_201_CREATED)
-def create_users(users: list[UserIn]) -> Any:
+@api.get("/", status_code=status.HTTP_200_OK, response_model=HomePage)
+def home_page() -> Any:
+
+    return {"get_users": f"http://127.0.0.1:{port}/users"}
+
+
+@api.post("/users/", status_code=status.HTTP_201_CREATED)
+def create_users(users: list[UserIn]) -> None:
 
     users_enc = hash_encoder(users)
 
-    with open(f"{dirname(__file__)}/database/db.json", "w") as file_json:
-        json.dump(users_enc, file_json)
+    with open(f"{SOURCE}/database/db.json", "w") as db_json:
+        json.dump(users_enc, db_json)
 
 
 @api.get("/users/", status_code=status.HTTP_200_OK, response_model=list[UserOut])
 def get_users() -> Any:
 
-    with open(f"{dirname(__file__)}/database/db.json", "r") as file_json:
-        users_enc = json.load(file_json)
+    with open(f"{SOURCE}/database/db.json", "r") as db_json:
+        users_enc: list[dict[str, Any]] = json.load(db_json)
 
     users_dec = hash_decoder(users_enc)
 
     return users_dec
+
+
+@api.delete("/users/", status_code=status.HTTP_204_NO_CONTENT)
+def delete_users() -> None:
+
+    no_users: list = []
+
+    with open(f"{SOURCE}/database/db.json", "w") as db_json:
+        json.dump(no_users, db_json)
