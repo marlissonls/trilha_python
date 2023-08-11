@@ -27,7 +27,7 @@ def home_page() -> Any:
 
 
 @api.post("/users/", status_code=status.HTTP_201_CREATED)
-def create_users(users: list[UserIn]) -> None:
+def create_users(users: list[UserIn]) -> Any:
 
     users_enc = hash_encoder(users)
 
