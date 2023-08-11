@@ -11,10 +11,10 @@ port = configs["port"]
 SOURCE = dirname(dirname(__file__))
 
 users_request_body = [
-    {"name": "hector", "email": "wheel_chair@yahoomail.com", "password": "dingdingding"},
-    {"name": "saul", "email": "saul@advmail.com", "password": "kim"},
-    {"name": "walterwhite", "email": "babyblue@gmail.com", "password": "heisenberg"},
-    {"name": "vince", "email": "yoyoyo@mail.com", "password": "bbad"},
+    {"name": "hector", "email": "wheel_chair@yahoomail.com", "password": "HASH_dingdingding"},
+    {"name": "suzane", "email": "suzane@gmail.com", "password": "HASH_12345678"},
+    {"name": "walterwhite", "email": "babyblue@gmail.com", "password": "HASH_heisenberg"},
+    {"name": "vince", "email": "yoyoyo@mail.com", "password": "HASH_bbad"}
 ]
 
 api = FastAPI()
