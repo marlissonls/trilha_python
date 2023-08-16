@@ -1,0 +1,5 @@
+python-dotenv
+fastapi
+uvicorn
+pydantic[email]
+mypy
