@@ -38,7 +38,6 @@ class UserService:
             result = self.repository.get_users_repository()
 
             if result is None:
-                print(result)
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         except HTTPException:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No users resgistered.")
@@ -63,7 +62,7 @@ class UserService:
 
         try:
             result = self.repository.delete_user_repository(user_id)
-        
+
             if result is None:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         except:
