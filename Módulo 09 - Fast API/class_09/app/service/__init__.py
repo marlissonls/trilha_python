@@ -19,10 +19,10 @@ class UserService:
             return result
 
 
-    def get_user_service(self, user_id: str) -> UserOut:
+    def get_user_by_id_service(self, user_id: str) -> UserOut:
 
         try:
-            result = self.repository.get_user_repository(user_id)
+            result = self.repository.get_user_by_id_repository(user_id)
 
             if result is None:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Can't find user by id: {user_id}.")
@@ -44,6 +44,19 @@ class UserService:
         else: 
             return result
     
+
+    def get_user_by_index_service(self, index: str) -> UserOut:
+        
+        try:
+            result = self.repository.get_user_by_index_repository(index)
+
+            if result is None:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        except HTTPException:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No user on index {index}.")
+        else: 
+            return result
+
 
     def update_user_service(self, user_id: str, user: UserIn) -> UserOut:
         

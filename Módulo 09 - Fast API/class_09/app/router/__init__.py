@@ -16,10 +16,10 @@ def create_user(user: UserIn) -> Any:
     return result
 
 
-@router.get('/{user_id}', status_code=status.HTTP_200_OK, response_model=UserOut)
-def get_users(user_id: str) -> Any:
-
-    result = controller.get_user_controller(user_id)
+@router.get('/id/{user_id}', status_code=status.HTTP_200_OK, response_model=UserOut)
+def get_user_by_id(user_id: str) -> Any:
+    print(user_id)
+    result = controller.get_user_by_id_controller(user_id)
 
     return result
 
@@ -28,6 +28,14 @@ def get_users(user_id: str) -> Any:
 def get_users() -> Any:
 
     result = controller.get_users_controller()
+
+    return result
+
+
+@router.get('/index/{index}', status_code=status.HTTP_200_OK, response_model=UserOut)
+def get_user_by_index(index: str) -> Any:
+    
+    result = controller.get_user_by_index_controller(index)
 
     return result
 
@@ -41,6 +49,6 @@ def update_user(user_id: str, user: UserIn) -> Any:
 
 
 @router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
-def delete_users(user_id: str) -> None:
+def delete_user(user_id: str) -> None:
 
     controller.delete_user_controller(user_id)

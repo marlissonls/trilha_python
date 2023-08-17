@@ -26,7 +26,7 @@ class UserRepository:
         return UserId(**{'id': user_dict['id']})
 
 
-    def get_user_repository(self, user_id: str) -> UserOut | None:
+    def get_user_by_id_repository(self, user_id: str) -> UserOut | None:
 
         with open(self._database, "r") as db_json:
             users: list[dict[str, Any]] = json.load(db_json)
@@ -50,6 +50,18 @@ class UserRepository:
         users_response = [UserOut(**user) for user in users]
 
         return users_response
+    
+
+    def get_user_by_index_repository(self, index: str) -> UserOut | None:
+
+        with open(self._database, "r") as db_json:
+            users: list[dict[str, Any]] = json.load(db_json)
+
+        if len(users) - 1 >= int(index):
+
+                return UserOut(**users[int(index)])
+
+        return None
     
 
     def update_user_repository(self, user_id: str, user_updated: UserIn) -> UserOut | None:

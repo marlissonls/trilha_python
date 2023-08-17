@@ -15,9 +15,9 @@ class UserController:
         return result
 
 
-    def get_user_controller(self, user_id: str) -> UserOut:
+    def get_user_by_id_controller(self, user_id: str) -> UserOut:
 
-        result = self.service.get_user_service(user_id)
+        result = self.service.get_user_by_id_service(user_id)
 
         return result
 
@@ -25,6 +25,13 @@ class UserController:
     def get_users_controller(self) -> list[UserOut]:
 
         result = self.service.get_users_service()
+
+        return result
+    
+
+    def get_user_by_index_controller(self, index: str) -> UserOut:
+
+        result = self.service.get_user_by_index_service(index)
 
         return result
     
