@@ -3,14 +3,10 @@ from app.controller import UserController
 from fastapi import APIRouter, status
 from typing import Any
 
-router = APIRouter(
-    prefix="/user",
-    tags=["user"]
-)
-
 
 controller = UserController()
 
+router = APIRouter(prefix="/user", tags=["user"])
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=UserId)
 def create_user(user: UserIn) -> Any:
