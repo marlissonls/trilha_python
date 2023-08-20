@@ -1,3 +1,3 @@
-from os.path import abspath
+from os.path import dirname
 
-DATABASE_PATH = abspath(__file__)
+DATABASE_PATH = dirname(__file__) + '\db.json'

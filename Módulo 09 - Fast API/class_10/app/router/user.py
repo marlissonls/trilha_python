@@ -25,7 +25,7 @@ def create_user(user: UserIn) -> Any:
 
 @router.get('/id/{user_id}', status_code=status.HTTP_200_OK, response_model=UserOut)
 def get_user_by_id(user_id: str) -> Any:
-    print(user_id)
+
     result = controller.get_user_by_id_controller(user_id)
 
     return result
