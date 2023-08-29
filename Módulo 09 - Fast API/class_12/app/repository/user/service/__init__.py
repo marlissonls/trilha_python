@@ -42,12 +42,9 @@ class UserService(IUserService):
 
         try:
             users = self._repository.get_users_repository(client)
-            print('#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$@@@@@@@@@@@')
-            test = [UserOut(id=user.id, name=user.name, email=user.email) for user in users]
-            print(test)
 
             if not users:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Can't find users.")
+                return []
         except Exception as e:
             raise self._internal_server_error_500 from e
         else:
