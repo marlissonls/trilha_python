@@ -1,15 +1,12 @@
 from app.repository.user.models.repository_interface import IUserRepository
-from app.repository.user.models.user_models import UserIn
 from app.sqlalchemy.schema import UserSchema
 from sqlalchemy.orm import Session as SQLAlchemySession
-from fastapi import HTTPException, status
-from typing import Any, List
-import json
+from typing import List
 
 
 class UserRepository(IUserRepository):
 
-    def get_user_by_id_repository(self, client: SQLAlchemySession, user_id) -> UserSchema | None:
+    def get_user_by_id_repository(self, client: SQLAlchemySession, user_id: str) -> UserSchema | None:
 
         user = client.query(UserSchema).filter(UserSchema.id == user_id).first()
 

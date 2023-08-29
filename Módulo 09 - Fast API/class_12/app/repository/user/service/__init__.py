@@ -15,7 +15,6 @@ class UserService(IUserService):
         self._repository = repository
         self._internal_server_error_500 = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error.")
 
-
     def get_user_by_id_service(self, user_id: str) -> UserOut:
 
         client: SQLAlchemySession = Session()
@@ -23,7 +22,7 @@ class UserService(IUserService):
         try:
             user = self._repository.get_user_by_id_repository(client, user_id)
 
-            if not user:
+            if user is None:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Can't find user by id: {user_id}.")
         except Exception as e:
             raise self._internal_server_error_500 from e
@@ -43,6 +42,9 @@ class UserService(IUserService):
 
         try:
             users = self._repository.get_users_repository(client)
+            print('#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$@@@@@@@@@@@')
+            test = [UserOut(id=user.id, name=user.name, email=user.email) for user in users]
+            print(test)
 
             if not users:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Can't find users.")
@@ -54,23 +56,23 @@ class UserService(IUserService):
             client.close()
 
 
-    def create_user_service(self, user: UserIn) -> UserId:
+    def create_user_service(self, user_body: UserIn) -> UserId:
 
         client: SQLAlchemySession = Session()
 
         try:
             new_user = UserSchema(
                 id=str(uuid.uuid1()),
-                name=user.name,
-                email=user.email,
-                password=Hasher.get_password_hash(user.password)
+                name=user_body.name,
+                email=user_body.email,
+                password=Hasher.get_password_hash(user_body.password)
             )
 
             self._repository.create_user_repository(client, new_user)
         except Exception as e:
             raise self._internal_server_error_500 from e
         else:
-            return UserId(**{'id': new_user.id})
+            return UserId(id=new_user.id)
         finally:
             client.close()
 

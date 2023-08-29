@@ -14,19 +14,10 @@ controller = UserController(service)
 router = APIRouter(prefix="/user", tags=["user"])
 
 
-
-@router.get('/id/{user_id}', status_code=status.HTTP_200_OK, response_model=UserOut)
+@router.get('/{user_id}', status_code=status.HTTP_200_OK, response_model=UserOut)
 def get_user_by_id(user_id: str) -> Any:
 
     result = controller.get_user_by_id_controller(user_id)
-
-    return result
-
-
-@router.get('/index/{index}', status_code=status.HTTP_200_OK, response_model=UserOut)
-def get_user_by_index(index: str) -> Any:
-
-    result = controller.get_user_by_index_controller(index)
 
     return result
 
