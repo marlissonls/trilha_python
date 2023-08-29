@@ -19,17 +19,6 @@ class UserController(IUserController):
             return result
 
 
-    def get_user_by_index_controller(self, index: str) -> UserOut:
-
-        try:
-            index_int = int(index)
-            result = self._service.get_user_by_index_service(index_int)
-        except Exception as Error:
-            print(Error)
-        else:
-            return result
-
-
     def get_users_controller(self) -> list[UserOut] | list:
 
         try:

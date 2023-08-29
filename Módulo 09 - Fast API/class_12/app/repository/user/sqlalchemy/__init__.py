@@ -23,15 +23,9 @@ class UserRepository(IUserRepository):
         return users
 
 
-    def create_user_repository(self, client: SQLAlchemySession, user: UserIn) -> None:
+    def create_user_repository(self, client: SQLAlchemySession, user: UserSchema) -> None:
 
-        new_user = UserSchema(
-            id=user.id,
-            name=user.name,
-            email=user.email,
-            password=user.password
-        )
-        client.add(new_user)
+        client.add(user)
         client.commit()
 
 

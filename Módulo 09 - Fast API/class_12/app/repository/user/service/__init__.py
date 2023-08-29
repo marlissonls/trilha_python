@@ -28,23 +28,16 @@ class UserService(IUserService):
         except Exception as e:
             raise self._internal_server_error_500 from e
         else:
-            return UserOut(*user)
+            return UserOut(
+                id=user.id,
+                name=user.name,
+                email=user.email
+            )
         finally:
             client.close()
 
 
-    def get_user_by_index_service(self, index: int) -> UserOut:
-
-        users_list = self._repository.get_users_repository()
-
-        if len(users_list) - 1 >= index:
-
-            return UserOut(**users_list[index])
-
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No user on index {index}.")
-
-
-    def get_users_service(self) -> list[UserOut] | list:
+    def get_users_service(self) -> list[UserOut]:
 
         client: SQLAlchemySession = Session()
 
@@ -56,7 +49,7 @@ class UserService(IUserService):
         except Exception as e:
             raise self._internal_server_error_500 from e
         else:
-            return UserOut(**users)
+            return [UserOut(id=user.id, name=user.name, email=user.email) for user in users]
         finally:
             client.close()
 
@@ -96,11 +89,15 @@ class UserService(IUserService):
         else:
             user.name = user_updated.name
             user.email = user_updated.email
-            user.password = user_updated.password
+            user.password = Hasher.get_password_hash(user_updated.password)
 
-            self._repository.update_user_repository(user)
+            self._repository.update_user_repository(client, user)
 
-            return UserOut(**user)
+            return UserOut(
+                id=user.id,
+                name=user.name,
+                email=user.email
+            )
         finally:
             client.close()
 
@@ -117,6 +114,6 @@ class UserService(IUserService):
         except Exception as e:
             raise self._internal_server_error_500 from e
         else:
-            self._repository.delete_user_repository(user)
+            self._repository.delete_user_repository(client, user)
         finally:
             client.close()

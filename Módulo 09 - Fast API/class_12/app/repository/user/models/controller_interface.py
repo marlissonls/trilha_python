@@ -9,10 +9,6 @@ class IUserController(ABC):
         pass
 
     @abstractmethod
-    def get_user_by_index_controller(self, index: str) -> UserOut:
-        pass
-
-    @abstractmethod
     def get_users_controller(self) -> list[UserOut]:
         pass
 

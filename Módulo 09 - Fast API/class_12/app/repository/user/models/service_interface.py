@@ -9,10 +9,6 @@ class IUserService(ABC):
         pass
 
     @abstractmethod
-    def get_user_by_index_service(self, index: int) -> UserOut:
-        pass
-
-    @abstractmethod
     def get_users_service(self) -> list[UserOut]:
         pass
 
