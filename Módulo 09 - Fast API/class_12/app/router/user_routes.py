@@ -1,7 +1,7 @@
 from app.repository.user.sqlalchemy import UserRepository
 from app.repository.user.service import UserService
 from app.repository.user.controller import UserController
-from app.repository.user.models.user_models import UserIn, UserOut, UserId
+from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
 from fastapi import APIRouter, status
 from typing import Any
 
@@ -34,6 +34,13 @@ def get_users() -> Any:
 def create_user(user: UserIn) -> Any:
 
     result = controller.create_user_controller(user)
+
+    return result
+
+
+@router.post('/checkuser', status_code=status.HTTP_200_OK, response_model=UserOut)
+def check_user(form: UserForm) -> Any:
+    result = controller.check_user_controller(form)
 
     return result
 

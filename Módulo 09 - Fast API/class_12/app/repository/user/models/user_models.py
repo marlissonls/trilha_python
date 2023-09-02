@@ -15,3 +15,7 @@ class UserIn(UserBase):
 
 class UserOut(UserId, UserBase):
     pass
+
+class UserForm(BaseModel):
+    name: str
+    password: str

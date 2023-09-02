@@ -13,11 +13,18 @@ class UserRepository(IUserRepository):
         return user
 
 
-    def get_users_repository(self, client:SQLAlchemySession) -> List[UserSchema]:
+    def get_users_repository(self, client: SQLAlchemySession) -> List[UserSchema]:
 
         users = client.query(UserSchema).all()
 
         return users
+    
+
+    def get_user_by_name_repository(self, client: SQLAlchemySession, name: str) -> UserSchema | None:
+
+        user = client.query(UserSchema).filter(UserSchema.name == name).first()
+
+        return user
 
 
     def create_user_repository(self, client: SQLAlchemySession, user: UserSchema) -> None:

@@ -1,4 +1,4 @@
-from app.repository.user.models.user_models import UserIn, UserOut, UserId
+from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
 from abc import ABC, abstractmethod
 
 
@@ -14,6 +14,10 @@ class IUserService(ABC):
 
     @abstractmethod
     def create_user_service(self, user: UserIn) -> UserId:
+        pass
+
+    @abstractmethod
+    def check_user_service(self, form: UserForm) -> UserOut:
         pass
 
     @abstractmethod

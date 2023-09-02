@@ -14,6 +14,10 @@ class IUserRepository(ABC):
     @abstractmethod
     def get_users_repository(self, client: SQLAlchemySession) -> List[UserSchema]:
         pass
+    
+    @abstractmethod
+    def get_user_by_name_repository(self, client: SQLAlchemySession, name: str) -> UserSchema | None:
+        pass
 
     @abstractmethod
     def create_user_repository(self, client: SQLAlchemySession, user: UserIn) -> None:

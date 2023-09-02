@@ -1,4 +1,4 @@
-from app.repository.user.models.user_models import UserIn, UserOut, UserId
+from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
 from app.repository.user.models.repository_interface import IUserRepository
 from app.repository.user.models.service_interface import IUserService
 from app.repository.user.service.hashing import Hasher
@@ -72,6 +72,28 @@ class UserService(IUserService):
             return UserId(id=new_user.id)
         finally:
             client.close()
+    
+
+    def check_user_service(self, form: UserForm) -> UserOut:
+
+        client: SQLAlchemySession = Session()
+
+        user = self._repository.get_user_by_name_repository(client, form.name)
+
+        if not user:
+            client.close()
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Can't find user by name: {form.name}.")
+
+        if Hasher.verify_password(form.password, user.password):
+            client.close()
+            return UserOut(
+                id=user.id,
+                name=user.name,
+                email=user.email
+            )
+        else:
+            client.close()
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Password do no match.")
 
 
     def update_user_service(self, user_id: str, user_updated: UserIn) -> UserOut:

@@ -1,6 +1,7 @@
 from app.repository.user.models.service_interface import IUserService
 from app.repository.user.models.controller_interface import IUserController
-from app.repository.user.models.user_models import UserIn, UserOut, UserId
+from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
+from fastapi import HTTPException
 import logging
 
 
@@ -45,6 +46,18 @@ class UserController(IUserController):
         except Exception as error:
             logger.error("An error occurred: %s", error)
             raise UserControllerException("Failed to create user.") from error
+
+
+    def check_user_controller(self, form: UserForm) -> UserOut:
+        try:
+            result = self._service.check_user_service(form)
+            return result
+        except HTTPException as http_error:
+            logger.error("An error occurred: %s", http_error)
+            raise HTTPException from http_error
+        except Exception as error:
+            logger.error("An error occurred: %s", error)
+            raise UserControllerException("Failed to fetch user by name.") from error
 
 
     def update_user_controller(self, user_id: str, user: UserIn) -> UserOut:
