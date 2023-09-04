@@ -2,6 +2,8 @@ from app.repository.user.models.service_interface import IUserService
 from app.repository.user.models.controller_interface import IUserController
 from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
 from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPasswordError, UserControllerException
+from typing import Annotated
+from fastapi import UploadFile
 import logging
 
 
@@ -32,9 +34,20 @@ class UserController(IUserController):
             raise UserControllerException("Failed to fetch users.") from error
 
 
-    def create_user_controller(self, user: UserIn) -> UserId:
+    def create_user_controller(
+        self, 
+        name: str,
+        email: str,
+        password: str,
+        profile_image: UploadFile
+    ) -> UserId:
         try:
-            return self._service.create_user_service(user)
+            return self._service.create_user_service(
+                name,
+                email,
+                password,
+                profile_image
+            )
         except Exception as error:
             logger.error("An error occurred: %s", error)
             raise UserControllerException("Failed to create user.") from error

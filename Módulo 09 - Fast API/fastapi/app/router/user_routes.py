@@ -2,8 +2,8 @@ from app.repository.user.sqlalchemy import UserRepository
 from app.repository.user.service import UserService
 from app.repository.user.controller import UserController
 from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
-from fastapi import APIRouter, status
-from typing import Any
+from fastapi import APIRouter, Form, File, UploadFile, status
+from typing import Any, Annotated
 
 
 repository = UserRepository()
@@ -25,8 +25,18 @@ def get_users() -> Any:
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=UserId)
-def create_user(user: UserIn) -> Any:
-    return controller.create_user_controller(user)
+def create_user(
+    name: Annotated[str, Form()],
+    email: Annotated[str, Form()],
+    password: Annotated[str, Form()],
+    profile_image: Annotated[UploadFile, File()]
+) -> Any:
+    return controller.create_user_controller(
+        name,
+        email,
+        password,
+        profile_image
+    )
 
 
 @router.post('/checkuser', status_code=status.HTTP_200_OK, response_model=UserOut)

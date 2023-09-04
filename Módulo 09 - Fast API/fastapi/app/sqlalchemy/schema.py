@@ -15,6 +15,7 @@ class UserSchema(Base):
     name = Column(String(30))
     email = Column(String)
     password = Column(String)
+    profile_image = Column(String)
 
 
 Base.metadata.create_all(engine)
