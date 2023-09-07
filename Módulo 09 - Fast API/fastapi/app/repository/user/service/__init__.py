@@ -1,19 +1,15 @@
-from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPasswordError, InternalServerError
+from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPasswordError, InternalServerError, FileTypeNotSupportedError
 from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
 from app.repository.user.models.repository_interface import IUserRepository
 from app.repository.user.models.service_interface import IUserService
+from app.repository.user.service.save_profile_image import save_profile_image
 from app.repository.user.service.hashing import Hasher
 from app.sqlalchemy.schema import UserSchema
 from app.sqlalchemy import Session
 from sqlalchemy.orm import Session as SQLAlchemySession
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi import UploadFile
-import uuid
-from os.path import dirname, exists, join
-from os import makedirs
-
-
-PROFILE_IMAGES_PATH = f'{dirname(dirname(dirname(dirname(dirname(__file__)))))}\profile_images'
+from uuid import uuid1
 
 
 class UserService(IUserService):
@@ -78,14 +74,9 @@ class UserService(IUserService):
         client: SQLAlchemySession = Session()
 
         try:
-            if not exists(PROFILE_IMAGES_PATH):
-                makedirs(PROFILE_IMAGES_PATH)
+            new_user_id = str(uuid1())
 
-            new_user_id = str(uuid.uuid1())
-
-            extension = profile_image.filename.split('.')[-1]
-
-            profile_image_name = f'{new_user_id}.{extension}'
+            profile_image_name = f'{new_user_id}.jpeg'
 
             new_user = UserSchema(
                 id=new_user_id,
@@ -97,18 +88,18 @@ class UserService(IUserService):
 
             self._repository.create_user_repository(client, new_user)
 
-            profile_image_path = join(PROFILE_IMAGES_PATH, profile_image_name)
+            save_profile_image(profile_image_name, profile_image)
 
-            with open(profile_image_path, "wb") as prof_image:
-                prof_image.write(profile_image.file.read())
+            client.commit()
 
             return UserId(id=new_user.id)
 
         except SQLAlchemyError as error:
             client.rollback()
             raise InternalServerError(f"SQLAlchemyError: {str(error)}") from error
-        except Exception as error:
-            raise InternalServerError(f"Internal Server Error: {str(error)}") from error
+        except FileTypeNotSupportedError as error:
+            client.rollback()
+            raise
         finally:
             client.close()
 
@@ -135,8 +126,6 @@ class UserService(IUserService):
         except SQLAlchemyError as error:
             client.rollback()
             raise InternalServerError(f"SQLAlchemyError: {str(error)}") from error
-        except Exception as error:
-            raise InternalServerError(f"Internal Server Error: {str(error)}") from error
         finally:
             client.close()  
 
@@ -157,17 +146,16 @@ class UserService(IUserService):
 
             self._repository.update_user_repository(client, user)
 
+            client.commit()
+
             return UserOut(
                 id=user.id,
                 name=user.name,
                 email=user.email
             )
-
         except SQLAlchemyError as error:
             client.rollback()
             raise InternalServerError(f"SQLAlchemyError: {str(error)}") from error
-        except Exception as error:
-            raise InternalServerError(f"Internal Server Error: {str(error)}") from error
         finally:
             client.close()
 
@@ -184,10 +172,10 @@ class UserService(IUserService):
 
             self._repository.delete_user_repository(client, user)
 
+            client.commit()
+
         except SQLAlchemyError as error:
             client.rollback()
             raise InternalServerError(f"SQLAlchemyError: {str(error)}") from error
-        except Exception as error:
-            raise InternalServerError(f"Internal Server Error: {str(error)}") from error
         finally:
             client.close()

@@ -1,7 +1,7 @@
-from app.repository.user.models.service_interface import IUserService
-from app.repository.user.models.controller_interface import IUserController
+from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPasswordError, UserControllerException, FileTypeNotSupportedError
 from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
-from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPasswordError, UserControllerException
+from app.repository.user.models.controller_interface import IUserController
+from app.repository.user.models.service_interface import IUserService
 from typing import Annotated
 from fastapi import UploadFile
 import logging
@@ -48,6 +48,9 @@ class UserController(IUserController):
                 password,
                 profile_image
             )
+        except FileTypeNotSupportedError as error:
+            logger.error("Profile image must be an image: %s", error)
+            raise
         except Exception as error:
             logger.error("An error occurred: %s", error)
             raise UserControllerException("Failed to create user.") from error
@@ -70,6 +73,9 @@ class UserController(IUserController):
     def update_user_controller(self, user_id: str, user: UserIn) -> UserOut:
         try:
             return self._service.update_user_service(user_id, user)
+        except UserNotFoundError as error:
+            logger.error("User not found: %s", error)
+            raise
         except Exception as error:
             logger.error("An error occurred: %s", error)
             raise UserControllerException("Failed to update user.") from error
@@ -78,6 +84,9 @@ class UserController(IUserController):
     def delete_user_controller(self, user_id: str) -> None:
         try:
             self._service.delete_user_service(user_id)
+        except UserNotFoundError as error:
+            logger.error("User not found: %s", error)
+            raise
         except Exception as error:
             logger.error("An error occurred: %s", error)
             raise UserControllerException("Failed to delete user.") from error
