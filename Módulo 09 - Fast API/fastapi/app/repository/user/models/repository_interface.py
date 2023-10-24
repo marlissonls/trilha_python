@@ -1,4 +1,4 @@
-from app.sqlalchemy.schema import UserSchema
+from app.database.schema import UserSchema
 from app.repository.user.models.user_models import UserIn
 from sqlalchemy.orm import Session as SQLAlchemySession
 from abc import ABC, abstractmethod

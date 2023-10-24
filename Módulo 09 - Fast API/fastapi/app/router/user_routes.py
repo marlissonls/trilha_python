@@ -1,9 +1,10 @@
-from app.repository.user.sqlalchemy import UserRepository
-from app.repository.user.service import UserService
-from app.repository.user.controller import UserController
+from fastapi import APIRouter, Form, File, UploadFile, status, Depends, Request
 from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
-from fastapi import APIRouter, Form, File, UploadFile, status
+from app.repository.user.sqlalchemy import UserRepository
+from app.repository.user.controller import UserController
+from app.repository.user.service import UserService
 from typing import Any, Annotated
+from sqlalchemy.orm import Session
 
 
 repository = UserRepository()
@@ -14,13 +15,17 @@ controller = UserController(service)
 router = APIRouter(prefix="/user", tags=["user"])
 
 
+def get_db(request: Request):
+    return request.state.db
+
+
 @router.get('/{user_id}', status_code=status.HTTP_200_OK, response_model=UserOut)
-def get_user_by_id(user_id: str) -> Any:
+def get_user_by_id(user_id: str, session: Session = Depends(get_db)) -> Any:
     return controller.get_user_by_id_controller(user_id)
 
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=list[UserOut])
-def get_users() -> Any:
+def get_users(session: Session = Depends(get_db)) -> Any:
     return controller.get_users_controller()
 
 
@@ -29,7 +34,8 @@ def create_user(
     name: Annotated[str, Form()],
     email: Annotated[str, Form()],
     password: Annotated[str, Form()],
-    profile_image: Annotated[UploadFile, File()]
+    profile_image: Annotated[UploadFile, File()],
+    session: Session = Depends(get_db)
 ) -> Any:
     return controller.create_user_controller(
         name,
@@ -40,15 +46,15 @@ def create_user(
 
 
 @router.post('/checkuser', status_code=status.HTTP_200_OK, response_model=UserOut)
-def check_user(form: UserForm) -> Any:
+def check_user(form: UserForm, session: Session = Depends(get_db)) -> Any:
     return controller.check_user_controller(form)
 
 
 @router.put('/{user_id}', tags=['custom'], status_code=status.HTTP_200_OK, response_model=UserOut)
-def update_user(user_id: str, user: UserIn) -> Any:
+def update_user(user_id: str, user: UserIn, session: Session = Depends(get_db)) -> Any:
     return controller.update_user_controller(user_id, user)
 
 
 @router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(user_id: str) -> None:
+def delete_user(user_id: str, session: Session = Depends(get_db)) -> None:
     controller.delete_user_controller(user_id)

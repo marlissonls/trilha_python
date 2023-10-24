@@ -2,7 +2,7 @@ from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPass
 from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
 from app.repository.user.models.controller_interface import IUserController
 from app.repository.user.models.service_interface import IUserService
-from typing import Annotated
+from sqlalchemy.orm import Session
 from fastapi import UploadFile
 import logging
 
@@ -15,9 +15,9 @@ class UserController(IUserController):
     def __init__(self, service: IUserService):
         self._service = service
 
-    def get_user_by_id_controller(self, user_id: str) -> UserOut:
+    def get_user_by_id_controller(self, user_id: str, session: Session) -> UserOut:
         try:
-            return self._service.get_user_by_id_service(user_id)
+            return self._service.get_user_by_id_service(user_id, session)
         except UserNotFoundError as error:
             logger.error("User not found: %s", error)
             raise
@@ -26,9 +26,9 @@ class UserController(IUserController):
             raise UserControllerException("Failed to fetch user by ID.") from error
 
 
-    def get_users_controller(self) -> list[UserOut] | list:
+    def get_users_controller(self, session: Session) -> list[UserOut] | list:
         try:
-            return self._service.get_users_service()
+            return self._service.get_users_service(session)
         except Exception as error:
             logger.error("An error occurred: %s", error)
             raise UserControllerException("Failed to fetch users.") from error
@@ -39,14 +39,16 @@ class UserController(IUserController):
         name: str,
         email: str,
         password: str,
-        profile_image: UploadFile
+        profile_image: UploadFile,
+        session: Session
     ) -> UserId:
         try:
             return self._service.create_user_service(
                 name,
                 email,
                 password,
-                profile_image
+                profile_image,
+                session
             )
         except FileTypeNotSupportedError as error:
             logger.error("Profile image must be an image: %s", error)
@@ -56,9 +58,9 @@ class UserController(IUserController):
             raise UserControllerException("Failed to create user.") from error
 
 
-    def check_user_controller(self, form: UserForm) -> UserOut:
+    def check_user_controller(self, form: UserForm, session: Session) -> UserOut:
         try:
-            return self._service.check_user_service(form)
+            return self._service.check_user_service(form, session)
         except UserNotFoundError as error:
             logger.error("User not found: %s", error)
             raise
@@ -70,9 +72,9 @@ class UserController(IUserController):
             raise UserControllerException("Failed to fetch user by name.") from error
 
 
-    def update_user_controller(self, user_id: str, user: UserIn) -> UserOut:
+    def update_user_controller(self, user_id: str, user: UserIn, session: Session) -> UserOut:
         try:
-            return self._service.update_user_service(user_id, user)
+            return self._service.update_user_service(user_id, user, session)
         except UserNotFoundError as error:
             logger.error("User not found: %s", error)
             raise
@@ -81,9 +83,9 @@ class UserController(IUserController):
             raise UserControllerException("Failed to update user.") from error
 
 
-    def delete_user_controller(self, user_id: str) -> None:
+    def delete_user_controller(self, user_id: str, session: Session) -> None:
         try:
-            self._service.delete_user_service(user_id)
+            self._service.delete_user_service(user_id, session)
         except UserNotFoundError as error:
             logger.error("User not found: %s", error)
             raise
