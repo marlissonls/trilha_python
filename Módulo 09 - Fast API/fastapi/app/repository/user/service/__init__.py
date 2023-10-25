@@ -5,10 +5,12 @@ from app.repository.user.models.service_interface import IUserService
 from app.repository.user.service.save_profile_image import save_profile_image
 from app.repository.user.service.hashing import Hasher
 from app.database.schema import UserSchema
+from app import configs
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi import UploadFile
 from uuid import uuid1
+import jwt
 
 
 class UserService(IUserService):
@@ -91,20 +93,24 @@ class UserService(IUserService):
 
     def check_user_service(self, form: UserForm, session: Session) -> UserOut:
         try:
-            user = self._repository.get_user_by_name_repository(form.name, session)
+            user = self._repository.get_user_by_name_repository(form.email, session)
 
             if not user:
-                raise UserNotFoundError(name=form.name)
+                raise UserNotFoundError(email=form.email)
 
             if Hasher.verify_password(form.password, user.password):
                 return UserOut(
                     id=user.id,
                     name=user.name,
-                    email=user.email
+                    email=user.email,
+                    token=jwt.encode(
+                        {"email": user.email, "type": "admin"},
+                        configs.jwt_configs["hash_key"],
+                        algorithm="HS256"
+                    )
                 )
             else:
-                raise InvalidPasswordError(name=form.name)
-
+                raise InvalidPasswordError(email=form.email)
         except SQLAlchemyError as error:
             session.rollback()
             raise InternalServerError(f"SQLAlchemyError: {str(error)}") from error

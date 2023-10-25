@@ -41,18 +41,19 @@ def create_user(
         name,
         email,
         password,
-        profile_image
+        profile_image,
+        session
     )
 
 
 @router.post('/checkuser', status_code=status.HTTP_200_OK, response_model=UserOut)
 def check_user(form: UserForm, session: Session = Depends(get_db)) -> Any:
-    return controller.check_user_controller(form)
+    return controller.check_user_controller(form, session)
 
 
 @router.put('/{user_id}', tags=['custom'], status_code=status.HTTP_200_OK, response_model=UserOut)
 def update_user(user_id: str, user: UserIn, session: Session = Depends(get_db)) -> Any:
-    return controller.update_user_controller(user_id, user)
+    return controller.update_user_controller(user_id, user, session)
 
 
 @router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)

@@ -14,8 +14,8 @@ class UserIn(UserBase):
     password: str
 
 class UserOut(UserId, UserBase):
-    pass
+    token: str
 
 class UserForm(BaseModel):
-    name: str
+    email: str
     password: str

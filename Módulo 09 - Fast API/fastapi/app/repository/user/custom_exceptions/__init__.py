@@ -2,11 +2,11 @@ from fastapi import HTTPException, status
 
 
 class UserNotFoundError(HTTPException):
-    def __init__(self, id: str | None = None, name: str | None = None) -> None:
+    def __init__(self, id: str | None = None, email: str | None = None) -> None:
         if id:
             detail = f"User with ID {id} not found."
-        elif name:
-            detail = f"User with name {name} not found."
+        elif email:
+            detail = f"User with email {email} not found."
         else:
             detail = "User not found."
 
@@ -14,8 +14,8 @@ class UserNotFoundError(HTTPException):
 
 
 class InvalidPasswordError(HTTPException):
-    def __init__(self, name: str) -> None:
-        detail = f"Password for user '{name}' does not match. Please check your credentials."
+    def __init__(self, email: str) -> None:
+        detail = f"Password for user '{email}' does not match. Please check your credentials."
         super().__init__(status_code=status.HTTP_401_UNAUTHORIZED, detail=detail)
 
 
