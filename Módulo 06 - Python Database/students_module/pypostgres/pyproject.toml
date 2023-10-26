@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pypostgres"
+version = "0.1.0"
+description = ""
+authors = ["Marlisson Silva <marlisson.business@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dnspython = "^2.3.0"
+keyboard = "^0.13.5"
+psycopg2 = "^2.9.5"
+pycodestyle = "^2.10.0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

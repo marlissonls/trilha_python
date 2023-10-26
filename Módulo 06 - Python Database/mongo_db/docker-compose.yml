@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    container_name: pymongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DBUSER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DBPASSWORD}
+      MONGO_INITDB_DATABASE: ${DBDATABASE}
+    ports:
+      - "${DBPORT}:27017"
+    command: mongod --auth
