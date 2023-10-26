@@ -5,5 +5,4 @@
 - Fundamentos Web
 - Fundamentos API
 - Fast API
-
-[INÍCIO🔙](https://github.com/marlissonls/trilha_python/tree/main)
+- Controle de sessão
