@@ -1,0 +1,1 @@
+# Subtração de Fundo

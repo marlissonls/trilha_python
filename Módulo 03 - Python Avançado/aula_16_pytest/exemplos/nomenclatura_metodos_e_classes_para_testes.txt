@@ -1,0 +1,29 @@
+Exemplo 1:
+
+def test_foo_bar():
+   assert True
+
+def not_foo_bar():
+   pass
+
+o método test_foo_bar será executado
+o método not_foo_bar será deixado de lado.
+
+
+
+Exemplo 2:
+
+class TestFOOBAR():
+   def bar_nao_executado():
+       pass
+   def test_another_foo_bar():
+       assert True
+
+class SeiLa():
+    def test_foo_bar_return():
+        assert True
+
+A classe SeiLa tem um método que está nos padrões de nomenclatura test_foo_bar_return porém, 
+não segue o padrão de nomenclatura de classe que o pytest procura.
+
+A classe TestFOOBAR segue o padrão de nomenclatura, e seus métodos também

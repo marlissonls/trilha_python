@@ -1,0 +1,9 @@
+__pycache__
+venv
+*.rar
+*.mp4
+*.docx
+*.caffemodel
+*.prototxt
+*.avi
+VbOAD Proposed Method.png

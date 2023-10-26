@@ -1,0 +1,22 @@
+Read Only ('r'): Abra o arquivo de texto para leitura. A alça é posicionada no início do arquivo. Se o arquivo não existir, gera o erro de E/S. Este também é o modo padrão no qual um arquivo é aberto.
+
+Read and Write ('r+'): Abre o arquivo para leitura e escrita. A alça é posicionada no início do arquivo. Gera erro de E/S se o arquivo não existir.
+
+Write Only ('w'): Abre o arquivo para escrita. Para os arquivos existentes, os dados são truncados e substituídos. A alça é posicionada no início do arquivo. Cria o arquivo se o arquivo não existir.
+
+Write and Read ('w+') : Abre o arquivo para leitura e escrita. Para um arquivo existente, os dados são truncados e substituídos. A alça é posicionada no início do arquivo.
+
+Append Only ('a') : Abre o arquivo para escrita. O arquivo é criado se não existir. A alça está posicionada no final do arquivo. Os dados que estão sendo gravados serão inseridos no final, após os dados existentes.
+
+Anexar e ler ('a+'): abre o arquivo para leitura e gravação. O arquivo é criado se não existir. A alça está posicionada no final do arquivo. Os dados que estão sendo gravados serão inseridos no final, após os dados existentes.
+
+read() : Retorna os bytes lidos na forma de uma string. Lê n bytes, se nenhum n for especificado, lê o arquivo inteiro.
+File_object.read([n])
+
+readline() : Lê uma linha do arquivo e retorna na forma de uma string. Para n especificado, lê no máximo n bytes. No entanto, não lê mais de uma linha, mesmo que n exceda o comprimento da linha.
+File_object.readline([n])
+
+readlines() : Lê todas as linhas e as retorna como cada linha um elemento de string em uma lista.
+File_object.readlines()
+
+File_object = open(r"File_Name", "Access_Mode")

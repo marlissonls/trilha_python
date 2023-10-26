@@ -1,0 +1,1 @@
+<h2>Crie a classe Polygon com um construtor que recebe “sides: List[float]” e um método “display_sides() -> List[float]”. Crie também a classe Triangle que herda o Polygon e implementa o “find_area() -> float”.</h2>

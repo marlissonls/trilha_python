@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "realce"
+version = "0.1.0"
+description = ""
+authors = ["Marlisson Silva <marlisson.business@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+opencv-python = "^4.7.0.72"
+matplotlib = "^3.7.1"
+pyqt5 = "^5.15.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
