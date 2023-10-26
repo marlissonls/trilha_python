@@ -1,0 +1,112 @@
+tests/
+    /conftest.py      # para disponibilizar fixtures para todo o projeto
+    /pytest.ini
+    /__init__.py
+
+    /user/
+        __init__.py
+        test_new_user.py
+
+    /store/
+        __init__.py
+        test_new_store.py
+        test_delete_store.py
+        some_helper.py
+
+
+Para executar os teste do diretório store:
+    pytest tests/store
+
+Este comando executará os arquivos de test que seguem o padrão test_* ou *_test.
+Sendo assim, os testes que serão executados são:
+    test_new_store.py
+    test_delete_store.py
+
+Para rodar um teste específico:
+    pytest test/store/test_new_store.py
+ou
+    pytest test/store/test_delete_store.py
+
+Para executar um método específico de um arquivo de teste:
+    pytest tests/store/test_new_store.py::test_metodo_de_teste
+
+Para executar testes de métodos específicos em vários arquivos é preciso marca-los com o "mark".
+Isso significa criar um agrupamento de métodos chamados "smoke tests":
+    - no arquivo pytest.ini:
+        [pytest]
+        addopts = --strict-markers          # impede uso de marcadores que não estão definidos neste arquivo
+        markers = smoke                     # marker smoke
+    
+    - no arquivo test_new_store.py:
+        import pytest
+
+        @pytest.mark.smoke                  # decorator do marcador smoke
+        def test_send_http():               # método específico do marcador smoke
+            assert True
+
+Para usar o "smoke tests" com classes:
+    import pytest
+    class TestNewUser:
+        pytestmark = pytest.mark.slow   ->  # definição a nível de métodos
+
+        def test_new_user_with_something(self):
+            assert True
+
+    @pytest.mark.smoke           ->         # definição a nível de classe
+    class TestNewStore:
+
+        def test_new_store_with_something(self):
+            assert True
+
+Para executar seus testes com marks especificos, você pode rodar da seguinte forma:
+    pytest -m slow
+    pytest -m slow --pdb  # o --pdb serve para capturar Exceptions (eu acho)
+
+Execução de processos antes e depois do teste com o Pytest.
+Para isso é preciso usar o decorator @pytest.fixture:
+    import pytest
+
+    @pytest.fixture
+    def smtp_connection():
+        import smtplib
+
+        return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
+
+    @pytest.fixture
+    def create_user():
+        return {'name': 'Novo Usuário'}
+    def test_ehlo(smtp_connection):
+        response, msg = smtp_connection.ehlo()
+        assert response == 250
+
+No código acima, o método smtp_connection() é chamado antes de test_ehlo(smtp_connection)
+
+import pytest
+@pytest.fixture
+def define_target():
+    return {'url': 'smtp.gmail.com', 'port': 587}
+@pytest.fixture
+def smtp_connection(define_target):
+    import smtplib
+    url = define_target['url']
+    port = define_target['port']
+    return smtplib.SMTP(url, port, timeout=5)
+def test_ehlo(smtp_connection):
+    response, msg = smtp_connection.ehlo()
+    assert response == 250
+
+No código acima é demonstrada outra capacidade das fixtures do pytest, 
+que é possibilidade de "empilhar" fixtures e fazer o teste chamar somente a última.
+
+import pytest
+def create_user():
+    return {'user': 'foobar'}
+def delete_user(user):
+    ...
+@pytest.fixture
+def user_setup():
+    user = create_user()
+    yield user
+    delete_user(user)
+def test_new_user(user_setup):
+    assert user_setup['user']  == 'foobar'

@@ -1,0 +1,61 @@
+c2 = c1
+print(id(c1))
+#140059774918104
+print(id(c2))
+#140059774918104
+
+class Conta:
+    pass
+
+dir(Conta)
+
+print(conta.__dict__) ==== vars(conta)
+
+if	__name__	==	'__main__':
+				mc	=	MinhaClasse()
+				print(repr(mc))
+
+>>>	x	=	1
+>>>	eval("x+1")
+2
+
+
+hasattr()  #has attribute
+
+print(D.mro())
+
+isinstance()
+issubclass()
+
+JSON.stringify(object) === json.dumps(object)
+JSON.parse(string) === json.loads(string)
+
+"Bootstrap",
+    "jQuery",
+    "Sass",
+    "React",
+    "Redux"
+
+for country in (obj_ind, obj_usa):
+
+unittest comand line:
+python -m unittest test
+python -m unittest -v test
+python -m unittest discover
+python -m unittest discover -s tests
+python -m unittest discover -s tests -t src
+python -m unittest discover -s tests/integration
+
+.assertEqual(a, b)	        a == b
+.assertTrue(x)	            bool(x) is True
+.assertFalse(x)	            bool(x) is False
+.assertIs(a, b)	            a is b
+.assertIsNone(x)	        x is None
+.assertIn(a, b)	            a in b
+.assertIsInstance(a, b)	    isinstance(a, b)
+.assertIs()
+.assertIsNone()
+.assertIn()
+.assertIsInstance()
+.assertIsNot()
+

@@ -1,0 +1,1 @@
+message = "Hello! I'm some module, my name is 'some_module.py' and 'app_package' is my home."
