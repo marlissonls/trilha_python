@@ -16,7 +16,7 @@ class IUserRepository(ABC):
         pass
     
     @abstractmethod
-    def get_user_by_name_repository(self, client: SQLAlchemySession, name: str) -> UserSchema | None:
+    def get_user_by_email_repository(self, client: SQLAlchemySession, name: str) -> UserSchema | None:
         pass
 
     @abstractmethod

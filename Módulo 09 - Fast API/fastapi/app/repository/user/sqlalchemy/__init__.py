@@ -14,7 +14,7 @@ class UserRepository(IUserRepository):
         return session.query(UserSchema).all()
     
 
-    def get_user_by_name_repository(self, email: str, session: Session) -> UserSchema | None:
+    def get_user_by_email_repository(self, email: str, session: Session) -> UserSchema | None:
         return session.query(UserSchema).filter(UserSchema.email == email).first()
 
 

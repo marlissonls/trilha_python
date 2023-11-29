@@ -1,5 +1,5 @@
 from app.repository.user.custom_exceptions import UserNotFoundError, InvalidPasswordError, UserControllerException, FileTypeNotSupportedError
-from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm
+from app.repository.user.models.user_models import UserIn, UserOut, UserId, UserForm, ResLogin
 from app.repository.user.models.controller_interface import IUserController
 from app.repository.user.models.service_interface import IUserService
 from sqlalchemy.orm import Session
@@ -58,7 +58,7 @@ class UserController(IUserController):
             raise UserControllerException("Failed to create user.") from error
 
 
-    def check_user_controller(self, form: UserForm, session: Session) -> UserOut:
+    def check_user_controller(self, form: UserForm, session: Session) -> ResLogin:
         try:
             return self._service.check_user_service(form, session)
         except UserNotFoundError as error:
@@ -69,7 +69,7 @@ class UserController(IUserController):
             raise
         except Exception as error:
             logger.error("An error occurred: %s", error)
-            raise UserControllerException("Failed to fetch user by name.") from error
+            raise UserControllerException("Failed to fetch user by email.") from error
 
 
     def update_user_controller(self, user_id: str, user: UserIn, session: Session) -> UserOut:
